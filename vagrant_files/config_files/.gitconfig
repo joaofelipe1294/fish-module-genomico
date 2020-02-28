@@ -1,6 +1,6 @@
 [alias]
 	b = branch
-        s = status
+  s = status
 	ck = checkout
 	cm = commit
 	d = diff
