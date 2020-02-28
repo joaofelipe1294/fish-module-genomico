@@ -41,8 +41,8 @@
 
     - name: Instalando Bundler 2.0.2
       command: bash /vagrant/vagrant_files/shell_scripts/bundler_install.sh >> bundler_install_log.txt
-
-    - name: Instalando pacotes utilizados pelo projeto
-      become: yes
-      apt:
-        name: zip
+    #
+    # - name: Instalando pacotes utilizados pelo projeto
+    #   become: yes
+    #   apt:
+    #     name: zip
