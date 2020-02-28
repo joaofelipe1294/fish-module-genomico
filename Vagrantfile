@@ -16,16 +16,16 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell",
     inline: "apt-get update -y"
 
-  # config.vm.provision "shell",
-  #   inline: "apt-get install python libpq-dev python-dev python-pip -y"
-  #
-  # config.vm.provision "shell",
-  #   inline: "sudo pip install psycopg2"
-  #
-  # config.vm.provider "virtualbox" do |v|
-  #   v.memory = 2048
-  #   v.cpus = 2
-  # end
+  config.vm.provision "shell",
+    inline: "apt-get install python libpq-dev python-dev python-pip -y"
+
+  config.vm.provision "shell",
+    inline: "sudo pip --proxy http://proxy.cdapp.net.br:3128 install psycopg2"
+
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 4096
+    v.cpus = 2
+  end
   #
   # config.vm.provision "ansible" do |ansible|
   #   ansible.playbook = "./vagrant_files/playbook.yml"
