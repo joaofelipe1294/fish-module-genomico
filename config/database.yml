@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  user: postgres
+  password: 1234
+  port: 5432
+  host: localhost
+
+development:
+  <<: *default
+  database: fish_module_genomico_development
+
+test:
+  <<: *default
+  database: fish_module_genomico_test
+
+production:
+  <<: *default
+  database: fish_module_genomico_production
+  username: fish_module_genomico
+  password: <%= ENV['FISH_MODULE_GENOMICO_DATABASE_PASSWORD'] %>
