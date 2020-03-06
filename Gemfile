@@ -55,6 +55,7 @@ group :test do
   # gem 'webdrivers'
   gem "cuprite"
   gem 'database_rewinder'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
