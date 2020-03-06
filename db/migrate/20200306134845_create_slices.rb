@@ -6,6 +6,7 @@ class CreateSlices < ActiveRecord::Migration[6.0]
       t.date :date
       t.integer :subsample_id
       t.string :subsample_label
+      t.integer :probe
 
       t.timestamps
     end

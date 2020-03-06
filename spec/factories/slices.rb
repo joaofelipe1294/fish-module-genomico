@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :slice do
-    responsible_id { 1 }
-    responsible_login { "MyString" }
-    date { "2020-03-05" }
-    subsample_id { 1 }
-    subsample_label { "MyString" }
+    responsible_id { Faker::Number.number }
+    responsible_login { Faker::Internet.email }
+    date { Date.current }
+    subsample_id { Faker::Number.number }
+    subsample_label { Faker::Name.name }
+    probe { :bcr_abl }
   end
 end
