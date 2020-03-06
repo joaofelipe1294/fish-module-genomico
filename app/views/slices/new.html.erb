@@ -9,8 +9,7 @@
   <div class="card-body">
     <%= form_with model: @slice, local: true do |form| %>
       <%= show_errors @slice %>
-      <%= form.text_field :subsample_id, hidden: true %>
-      <%= form.text_field :subsample_label, hidden: true %>
+      <%= form.text_field :exam_id, hidden: true %>
       <div class="form-group">
         <%= form.label :responsible_id %>
         <%= form.select :responsible_id, options_from_collection_for_select(users, "id", "login"), {}, class: 'form-control' %>

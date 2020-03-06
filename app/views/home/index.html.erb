@@ -24,8 +24,8 @@
         <td><%= exam.started_at %></td>
         <td><%= exam.status %></td>
         <td>
-          <%= link_to "Nova lâmina", new_slice_path(subsample_id: exam.sample_id, subsample_label: exam.subsample_label), class: 'btn btn-sm btn-outline-info new-slice' %>
-          <%= link_to "Lâminas", slices_from_exam_path(exam.id) %>
+          <%= link_to "Nova lâmina", new_slice_path(exam_id: exam.id), class: 'btn btn-sm btn-outline-info new-slice' %>
+          <%= link_to "Lâminas", slices_from_exam_path(exam.id), class: 'btn btn-sm btn-outline-secondary' %>
         </td>
       </tr>
     <% end %>

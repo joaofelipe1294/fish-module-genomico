@@ -15,14 +15,11 @@ RSpec.describe Slice, type: :model do
       it 'date' do
         @slice.date = nil
       end
-      it 'subsample_id' do
-        @slice.subsample_id = nil
-      end
-      it 'subsample_label' do
-        @slice.subsample_label = ''
-      end
       it 'probe' do
         @slice.probe = nil
+      end
+      it 'exam_id' do
+        @slice.exam_id = nil
       end
     end
     context "when all values are ok" do

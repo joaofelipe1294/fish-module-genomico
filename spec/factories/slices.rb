@@ -6,5 +6,6 @@ FactoryBot.define do
     subsample_id { Faker::Number.number }
     subsample_label { Faker::Name.name }
     probe { :bcr_abl }
+    exam_id { Faker::Number.number }
   end
 end
