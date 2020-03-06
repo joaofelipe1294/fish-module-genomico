@@ -1,0 +1,13 @@
+"pt-BR":
+  enums:
+    slice:
+      probes:
+        bcr_abl: BCR_ABL
+  activerecord:
+    models:
+      slice: Lâmina
+    attributes:
+      slice:
+        responsible_id: Responsável
+        date: Data de preparo
+        probe: Sonda
