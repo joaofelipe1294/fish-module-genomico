@@ -30,6 +30,10 @@ class SlicesController < ApplicationController
     response.map { |user| User.new(id: user["id"], login: user["login"])}
   end
 
+  def slices_from_exam
+    @slices = Slice.where(exam_id: params[:id])
+  end
+
   private
 
     def slice_params

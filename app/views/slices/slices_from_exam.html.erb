@@ -1,0 +1,18 @@
+<%= render 'layouts/navbar' %>
+
+<table class="mt-5">
+  <thead>
+    <th>Responsável</th>
+    <th>Data de preparo da lâmina</th>
+    <th>Sonda</th>
+  </thead>
+  <tbody>
+    <% @slices.each do |slice| %>
+      <tr>
+        <td><%= slice.responsible_login %></td>
+        <td><%= l slice.date %></td>
+        <td><%= slice.probe_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

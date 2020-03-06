@@ -10,4 +10,8 @@ class Slice < ApplicationRecord
     end
   end
 
+  def probe_name
+    I18n.t("enums.slice.probes.#{self.probe}")
+  end
+
 end
