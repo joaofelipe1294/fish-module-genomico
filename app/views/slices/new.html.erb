@@ -8,6 +8,7 @@
   </div>
   <div class="card-body">
     <%= form_with model: @slice, local: true do |form| %>
+      <%= show_errors @slice %>
       <%= form.text_field :subsample_id, hidden: true %>
       <%= form.text_field :subsample_label, hidden: true %>
       <div class="form-group">
