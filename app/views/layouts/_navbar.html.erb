@@ -24,3 +24,15 @@
     </ul>
   </div>
 </nav>
+
+<% if flash[:success] %>
+  <div class="alert alert-success" role="alert" id = 'success-message'>
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<% if flash[:error] %>
+  <div class="alert alert-danger" role = 'alert' id = 'danger-message'>
+    <%= flash[:error] %>
+  </div>
+<% end %>

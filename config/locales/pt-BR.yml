@@ -11,3 +11,4 @@
         responsible_id: Responsável
         date: Data de preparo da lâmina
         probe: Sonda
+  new_slice_success: Lâmina cadastrada com sucesso.
