@@ -1,1 +1,28 @@
 <%= render 'layouts/navbar' %>
+
+<h2 class="text-center mt-3">
+  Exames em andamento
+</h2>
+
+<hr>
+
+<table>
+  <thead class="bg-secondary">
+    <th>Exame</th>
+    <th>Paciente</th>
+    <th>Amostra</th>
+    <th>Iniciado em</th>
+    <th>Status</th>
+  </thead>
+  <tbody>
+    <% @exams.each do |exam| %>
+      <tr class="exam">
+        <td><%= exam["exam"] %></td>
+        <td><%= exam["patient"] %></td>
+        <td><%= exam["subsample_label"] %></td>
+        <td><%= exam["started_at"] %></td>
+        <td><%= exam["status"] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

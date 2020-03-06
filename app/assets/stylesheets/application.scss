@@ -16,7 +16,23 @@
  *= require_self
  */
 
-span:after {
-   font-family: 'Font Awesome\ 5 Free';
-   font-weight: 900; /* Fix version 5.0.9 */
- }
+@import 'bootstrap/dist/css/bootstrap';
+
+th {
+  @extend .h5;
+}
+
+thead {
+  @extend .text-white, .bg-dark;
+}
+
+table {
+  @extend .table, .text-center, .mt-3;
+}
+
+.form-card {
+  @extend .card, .col-8, .offset-2, .mt-5, .p-0;
+  h2 {
+    @extend .text-white, .text-center;
+  }
+}
