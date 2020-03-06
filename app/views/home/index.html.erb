@@ -25,7 +25,9 @@
         <td><%= exam.status %></td>
         <td>
           <%= link_to "Nova lâmina", new_slice_path(exam_id: exam.id), class: 'btn btn-sm btn-outline-info new-slice' %>
-          <%= link_to "Lâminas", slices_from_exam_path(exam.id), class: 'btn btn-sm btn-outline-secondary' %>
+          <% unless Slice.where(exam_id: exam.id).empty? %>
+            <%= link_to "Lâminas", slices_from_exam_path(exam.id), class: 'btn btn-sm btn-outline-secondary' %>
+          <% end %>
         </td>
       </tr>
     <% end %>
