@@ -10,8 +10,29 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require @fortawesome/fontawesome-free/css/all
+ *= require @fortawesome/fontawesome-free/css/fontawesome.min
  *= require bootstrap/dist/css/bootstrap
  *= require_tree .
  *= require_self
  */
+
+@import 'bootstrap/dist/css/bootstrap';
+
+th {
+  @extend .h5;
+}
+
+thead {
+  @extend .text-white, .bg-dark;
+}
+
+table {
+  @extend .table, .text-center, .mt-3;
+}
+
+.form-card {
+  @extend .card, .col-8, .offset-2, .mt-5, .p-0;
+  h2 {
+    @extend .text-white, .text-center;
+  }
+}
