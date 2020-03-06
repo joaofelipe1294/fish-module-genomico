@@ -9,5 +9,5 @@
     attributes:
       slice:
         responsible_id: Responsável
-        date: Data de preparo
+        date: Data de preparo da lâmina
         probe: Sonda

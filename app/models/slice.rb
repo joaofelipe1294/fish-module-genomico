@@ -3,4 +3,11 @@ class Slice < ApplicationRecord
   enum probe: {
     bcr_abl: 1,
   }
+
+  def self.probes_for_select
+    probes.map do |probe, _|
+      [ I18n.t("enums.slice.probes.#{probe}"), probe ]
+    end
+  end
+
 end
