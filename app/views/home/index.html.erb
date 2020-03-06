@@ -13,6 +13,7 @@
     <th>Amostra</th>
     <th>Iniciado em</th>
     <th>Status</th>
+    <th></th>
   </thead>
   <tbody>
     <% @exams.each do |exam| %>
@@ -22,6 +23,9 @@
         <td><%= exam["subsample_label"] %></td>
         <td><%= exam["started_at"] %></td>
         <td><%= exam["status"] %></td>
+        <td>
+          <%= link_to "Nova lâmina", new_slice_path(subsample_id: exam["sample_id"], subsample_label: exam["subsample_label"]), class: 'btn btn-sm btn-outline-info' %>
+        </td>
       </tr>
     <% end %>
   </tbody>

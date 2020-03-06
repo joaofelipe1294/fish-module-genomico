@@ -1,2 +1,48 @@
-<h1>Slices#new</h1>
-<p>Find me in app/views/slices/new.html.erb</p>
+<%= render 'layouts/navbar' %>
+
+<div class="form-card">
+  <div class="card-header bg-primary">
+    <h2>
+      Nova lâmina
+    </h2>
+  </div>
+  <div class="card-body">
+    <%= form_with model: @slice, local: true do |form| %>
+      <div class="form-group">
+        <%= form.label :responsible_id %>
+        <%= form.select :responsible_id, options_from_collection_for_select(users, "id", "login"), {}, class: 'form-control' %>
+        <%= form.text_field :responsible_login, hidden: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :date %>
+        <%= form.date_field :date, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= form.label :probe %>
+        <%= form.select :probe, options_for_select([]), {}, class: 'form-control' %>
+      </div>
+      <button id="btn-save" class="btn btn-outline-primary">
+        Salvar
+      </button>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+
+<script>
+
+  function set_user_login(){
+    let responsible_select = $('#slice_responsible_id')
+    let selected_login = $('#slice_responsible_id option:selected').text()
+    $('#slice_responsible_login').val(selected_login)
+  }
+
+  $(document).on('turbolinks:load', () => set_user_login())
+  $('#slice_responsible_id').on('change', () => set_user_login())
+
+</script>
