@@ -24,7 +24,7 @@
         <td><%= exam["started_at"] %></td>
         <td><%= exam["status"] %></td>
         <td>
-          <%= link_to "Nova lâmina", new_slice_path(subsample_id: exam["sample_id"], subsample_label: exam["subsample_label"]), class: 'btn btn-sm btn-outline-info' %>
+          <%= link_to "Nova lâmina", new_slice_path(subsample_id: exam["sample_id"], subsample_label: exam["subsample_label"]), class: 'btn btn-sm btn-outline-info new-slice' %>
         </td>
       </tr>
     <% end %>
