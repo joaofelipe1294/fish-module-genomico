@@ -5,7 +5,7 @@ class SlicesController < ApplicationController
   end
 
   def new
-    @slice = Slice.new({exam_id: params[:exam_id]})
+    @slice = Slice.new({genomico_exam_id: params[:exam_id]})
   end
 
   def create
@@ -31,13 +31,13 @@ class SlicesController < ApplicationController
   end
 
   def slices_from_exam
-    @slices = Slice.where(exam_id: params[:id])
+    @slices = Slice.where(genomico_exam_id: params[:id])
   end
 
   private
 
     def slice_params
-      params.require(:slice).permit(:exam_id, :responsible_id, :responsible_login, :date, :subsample_id, :subsample_label, :probe)
+      params.require(:slice).permit(:genomico_exam_id, :responsible_id, :responsible_login, :date, :subsample_id, :subsample_label, :probe)
     end
 
 end

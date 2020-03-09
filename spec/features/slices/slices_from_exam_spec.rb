@@ -24,7 +24,7 @@ RSpec.feature "Slices::SlicesFromExams", type: :feature do
         context "when click in slices from exam link" do
           before(:each) { click_link class: 'slices-from-exam', match: :first }
           it 'is expected to be redirected to slices-from-exam path' do
-            exam_id = Slice.last.exam_id
+            exam_id = Slice.last.genomico_exam_id
             expect(page).to have_current_path slices_from_exam_path(exam_id)
           end
           it "is expected to render all slices" do
