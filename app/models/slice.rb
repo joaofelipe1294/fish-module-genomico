@@ -1,5 +1,5 @@
 class Slice < ApplicationRecord
-  validates_presence_of :responsible_id, :responsible_login, :date, :probe, :exam_id
+  validates_presence_of :responsible_id, :responsible_login, :date, :probe, :genomico_exam_id
   enum probe: {
     bcr_abl: 1,
   }

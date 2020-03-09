@@ -18,8 +18,8 @@ RSpec.describe Slice, type: :model do
       it 'probe' do
         @slice.probe = nil
       end
-      it 'exam_id' do
-        @slice.exam_id = nil
+      it 'genomico_exam_id' do
+        @slice.genomico_exam_id = nil
       end
     end
     context "when all values are ok" do
