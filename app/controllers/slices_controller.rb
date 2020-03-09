@@ -5,7 +5,7 @@ class SlicesController < ApplicationController
   end
 
   def new
-    @slice = Slice.new({subsample_id: params[:subsample_id], subsample_label: params[:subsample_label]})
+    @slice = Slice.new({exam_id: params[:exam_id]})
   end
 
   def create
@@ -30,10 +30,14 @@ class SlicesController < ApplicationController
     response.map { |user| User.new(id: user["id"], login: user["login"])}
   end
 
+  def slices_from_exam
+    @slices = Slice.where(exam_id: params[:id])
+  end
+
   private
 
     def slice_params
-      params.require(:slice).permit(:responsible_id, :responsible_login, :date, :subsample_id, :subsample_label, :probe)
+      params.require(:slice).permit(:exam_id, :responsible_id, :responsible_login, :date, :subsample_id, :subsample_label, :probe)
     end
 
 end
