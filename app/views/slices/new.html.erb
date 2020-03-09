@@ -12,7 +12,7 @@
       <%= form.text_field :genomico_exam_id, hidden: true %>
       <div class="form-group">
         <%= form.label :responsible_id %>
-        <%= form.select :responsible_id, options_from_collection_for_select(users, "id", "login"), {}, class: 'form-control' %>
+        <%= form.select :responsible_id, options_from_collection_for_select(User.all, "id", "login"), {}, class: 'form-control' %>
         <%= form.text_field :responsible_login, hidden: true %>
       </div>
       <div class="form-group">

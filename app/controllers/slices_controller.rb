@@ -24,12 +24,6 @@ class SlicesController < ApplicationController
   def show
   end
 
-  def users
-    response = RestClient.get('cda0015.cdapp.net.br:3000/fish-api/users')
-    response = JSON.parse response
-    response.map { |user| User.new(id: user["id"], login: user["login"])}
-  end
-
   def slices_from_exam
     @slices = Slice.where(genomico_exam_id: params[:id])
   end
