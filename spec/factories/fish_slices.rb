@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :slice do
+  factory :fish_slice do
     responsible_id { Faker::Number.number(digits: 4) }
     responsible_login { Faker::Internet.email }
     date { Date.current }

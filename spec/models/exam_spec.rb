@@ -6,7 +6,7 @@ RSpec.describe Exam, type: :model do
     context "when required values are missing is expected to be_invalid" do
 
       before(:each) do
-        create(:slice)
+        create(:fish_slice)
         @exam = build(:exam)
       end
       after(:each) { expect(@exam).to be_invalid }
