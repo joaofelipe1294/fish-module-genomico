@@ -1,0 +1,46 @@
+class FishSlicesController < ApplicationController
+  helper_method :users
+
+  def index
+  end
+
+  def new
+    @slice = FishSlice.new({genomico_exam_id: params[:exam_id], exam: Exam.new})
+  end
+
+  def create
+    @slice = FishSlice.new slice_params
+    if @slice.save
+      flash[:success] = I18n.t :new_fish_slice_success
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
+
+  def edit
+  end
+
+  def show
+  end
+
+  def slices_from_exam
+    @slices = FishSlice.where(genomico_exam_id: params[:id])
+  end
+
+  private
+
+    def slice_params
+      params.require(:fish_slice).permit(:genomico_exam_id, :responsible_id, :responsible_login, :date, :subsample_id, :subsample_label, :probe)
+    end
+
+    def exam_params
+      {
+        name: params[:name],
+        patient: params[:patient],
+        subsample_label: params[:subsample_label],
+        start_date: params[:start_date]
+      }
+    end
+
+end

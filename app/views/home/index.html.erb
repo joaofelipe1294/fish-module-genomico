@@ -24,8 +24,8 @@
         <td><%= exam.started_at %></td>
         <td><%= exam.status %></td>
         <td>
-          <%= link_to "Nova lâmina", new_slice_path(exam_id: exam.id), class: 'btn btn-sm btn-outline-info new-slice' %>
-          <% unless Slice.where(exam_id: exam.id).empty? %>
+          <%= link_to "Nova lâmina", new_fish_slice_path(exam_id: exam.id, name: exam.exam, patient: exam.patient, subsample_label: exam.subsample_label, start_date: exam.started_at), class: 'btn btn-sm btn-outline-info new-slice' %>
+          <% unless FishSlice.where(genomico_exam_id: exam.id).empty? %>
             <%= link_to "Lâminas", slices_from_exam_path(exam.id), class: 'btn btn-sm btn-outline-secondary slices-from-exam' %>
           <% end %>
         </td>
