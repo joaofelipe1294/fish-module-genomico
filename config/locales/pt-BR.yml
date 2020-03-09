@@ -1,14 +1,14 @@
 "pt-BR":
   enums:
-    slice:
+    fish_slice:
       probes:
         bcr_abl: BCR_ABL
   activerecord:
     models:
-      slice: Lâmina
+      fish_slice: Lâmina
     attributes:
-      slice:
+      fish_slice:
         responsible_id: Responsável
         date: Data de preparo da lâmina
         probe: Sonda
-  new_slice_success: Lâmina cadastrada com sucesso.
+  new_fish_slice_success: Lâmina cadastrada com sucesso.

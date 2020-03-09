@@ -21,7 +21,7 @@
       </div>
       <div class="form-group">
         <%= form.label :probe %>
-        <%= form.select :probe, options_for_select(Slice.probes_for_select), {}, class: 'form-control' %>
+        <%= form.select :probe, options_for_select(FishSlice.probes_for_select), {}, class: 'form-control' %>
       </div>
       <button id="btn-save" class="btn btn-outline-primary">
         Salvar
@@ -39,12 +39,12 @@
 <script>
 
   function set_user_login(){
-    let responsible_select = $('#slice_responsible_id')
-    let selected_login = $('#slice_responsible_id option:selected').text()
-    $('#slice_responsible_login').val(selected_login)
+    let responsible_select = $('#fish_slice_responsible_id')
+    let selected_login = $('#fish_slice_responsible_id option:selected').text()
+    $('#fish_slice_responsible_login').val(selected_login)
   }
 
   $(document).on('turbolinks:load', () => set_user_login())
-  $('#slice_responsible_id').on('change', () => set_user_login())
+  $('#fish_slice_responsible_id').on('change', () => set_user_login())
 
 </script>
