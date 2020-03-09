@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   def index
     response = RestClient.get('cda0015.cdapp.net.br:3000/fish-api/exams')
     @exams = JSON.parse(response).map do |exam|
-      Exam.new({
+      GenomicoExamPresenter.new({
         exam: exam["exam"],
         patient: exam["patient"],
         subsample_label: exam["subsample_label"],
