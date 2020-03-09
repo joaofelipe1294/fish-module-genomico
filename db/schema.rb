@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2020_03_09_131103) do
     t.index ["fish_slice_id"], name: "index_exams_on_fish_slice_id"
   end
 
-  create_table "slices", force: :cascade do |t|
+  create_table "fish_slices", force: :cascade do |t|
     t.integer "responsible_id"
     t.string "responsible_login"
     t.date "date"
@@ -39,5 +39,4 @@ ActiveRecord::Schema.define(version: 2020_03_09_131103) do
     t.integer "genomico_exam_id"
   end
 
-  add_foreign_key "exams", "slices", column: "fish_slice_id"
 end

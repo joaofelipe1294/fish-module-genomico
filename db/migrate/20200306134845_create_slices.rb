@@ -1,6 +1,6 @@
 class CreateSlices < ActiveRecord::Migration[6.0]
   def change
-    create_table :slices do |t|
+    create_table :fish_slices do |t|
       t.integer :responsible_id
       t.string :responsible_login
       t.date :date

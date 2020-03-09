@@ -4,7 +4,7 @@ class CreateExams < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :patient
       t.string :subsample_label
-      t.references :fish_slice, null: false, foreign_key: { to_table: 'slices' }
+      t.references :fish_slice, null: false
       t.date :start_date
       t.integer :genomico_exam_id
 
