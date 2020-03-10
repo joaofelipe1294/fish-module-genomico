@@ -4,6 +4,7 @@ class CreateScannings < ActiveRecord::Migration[6.0]
       t.references :fish_slice, null: false, foreign_key: true
       t.integer :responsible_id
       t.string :responsible_login
+      t.date :date
 
       t.timestamps
     end

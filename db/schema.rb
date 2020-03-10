@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_134233) do
+ActiveRecord::Schema.define(version: 2020_03_10_135009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_03_10_134233) do
     t.bigint "fish_slice_id", null: false
     t.integer "responsible_id"
     t.string "responsible_login"
+    t.date "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["fish_slice_id"], name: "index_scannings_on_fish_slice_id"
