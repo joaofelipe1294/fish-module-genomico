@@ -6,9 +6,14 @@
   activerecord:
     models:
       fish_slice: Lâmina
+      scanning: Digitalização
     attributes:
       fish_slice:
         responsible_id: Responsável
         date: Data de preparo da lâmina
         probe: Sonda
+      scanning:
+        date: Data da digitalização
+        responsible: Responsável
+        slice_id: Lâmina
   new_fish_slice_success: Lâmina cadastrada com sucesso.
