@@ -10,6 +10,7 @@
     <th>Amostra</th>
     <th>Sonda</th>
     <th>Responsável</th>
+    <th></th>
   </thead>
   <tbody>
     <% @slices.each do |slice| %>
@@ -20,6 +21,9 @@
         <td><%= slice.exam.subsample_label %></td>
         <td><%= slice.probe_name %></td>
         <td><%= slice.responsible_login %></td>
+        <td>
+          <%= link_to "Nova captura", new_scanning_path(slice_id: slice.id), class: 'btn btn-sm btn-outline-success' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
