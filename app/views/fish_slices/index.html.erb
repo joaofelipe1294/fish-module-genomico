@@ -13,14 +13,15 @@
   </thead>
   <tbody>
     <% @slices.each do |slice| %>
-      <tr>
+      <tr class="fish-slice">
         <td><%= slice.exam.patient %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= slice.exam.name %></td>
+        <td><%= l slice.date %></td>
+        <td><%= slice.exam.subsample_label %></td>
+        <td><%= slice.probe_name %></td>
+        <td><%= slice.responsible_login %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= render 'layouts/table_footer', elements: @slices %>

@@ -2,7 +2,7 @@ class FishSlicesController < ApplicationController
   helper_method :users
 
   def index
-    @slices = FishSlice.all.order(date: :desc)
+    @slices = FishSlice.all.order(date: :desc).page params[:page]
   end
 
   def new

@@ -2,6 +2,7 @@ class FishSlice < ApplicationRecord
   validates_presence_of :responsible_id, :responsible_login, :date, :probe, :genomico_exam_id
   has_one :exam
   accepts_nested_attributes_for :exam
+  paginates_per 10
   enum probe: {
     bcr_abl: 1,
   }
