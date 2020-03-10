@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 gem 'kaminari-i18n'
+gem "mini_magick"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
