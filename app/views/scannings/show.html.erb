@@ -1,0 +1,26 @@
+<%= render 'layouts/navbar' %>
+
+<div class="card col-8 mt-5 p-0 offset-2">
+  <div class="card-header">
+    <h2 class="text-center">
+      Digitalização
+    </h2>
+  </div>
+  <div class="card-body">
+    <div class="form-group">
+      <div class="row col-12">
+        <h4 class="col-6 d-inline-block text-center">
+          Responsável: <%= @scanning.responsible_login %>
+        </h4>
+        <h4 class="col-6 d-inline-block text-center">
+          Data da captura: <%= l @scanning.date %>
+        </h4>
+      </div>
+      <hr>
+    </div>
+    <% @scanning.images.each do |image| %>
+      <%= image %>
+      <br>
+    <% end %>
+  </div>
+</div>

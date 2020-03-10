@@ -3,6 +3,10 @@ class ScanningsController < ApplicationController
   def index
   end
 
+  def show
+    @scanning = Scanning.find params[:id]
+  end
+
   def new
     @scanning = Scanning.new(fish_slice_id: params[:slice_id])
   end
@@ -11,7 +15,7 @@ class ScanningsController < ApplicationController
     @scanning = Scanning.new scanning_params
     if @scanning.save
       flash[:success] = I18n.t :new_scanning_success
-      redirect_to scannings_path
+      redirect_to scanning_path(@scanning)
     else
       render :new
     end
