@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_135009) do
+ActiveRecord::Schema.define(version: 2020_03_10_170341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,15 @@ ActiveRecord::Schema.define(version: 2020_03_10_135009) do
     t.integer "genomico_exam_id"
   end
 
+  create_table "scanning_images", force: :cascade do |t|
+    t.bigint "scanning_id", null: false
+    t.integer "total_nucleus_found"
+    t.integer "valid_nucleus_found"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["scanning_id"], name: "index_scanning_images_on_scanning_id"
+  end
+
   create_table "scannings", force: :cascade do |t|
     t.bigint "fish_slice_id", null: false
     t.integer "responsible_id"
@@ -71,5 +80,6 @@ ActiveRecord::Schema.define(version: 2020_03_10_135009) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "scanning_images", "scannings"
   add_foreign_key "scannings", "fish_slices"
 end
