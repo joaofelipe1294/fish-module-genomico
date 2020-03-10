@@ -35,7 +35,7 @@ RSpec.feature "FishSlices::News", type: :feature do
           click_button id: 'btn-save'
         end
         it 'is expected to show error messages' do
-          expect(page).to have_selector '.error'
+          expect(page).to have_selector '#error-message'
         end
       end
     end

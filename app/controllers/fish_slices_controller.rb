@@ -2,6 +2,7 @@ class FishSlicesController < ApplicationController
   helper_method :users
 
   def index
+    @slices = FishSlice.all.order(date: :desc)
   end
 
   def new
@@ -14,7 +15,9 @@ class FishSlicesController < ApplicationController
       flash[:success] = I18n.t :new_fish_slice_success
       redirect_to root_path
     else
-      render :new
+      flash[:error] = @slice.errors.full_messages.first
+      exam = @slice.exam
+      redirect_to new_fish_slice_path(patient: exam.patient, name: exam.name, start_date: exam.start_date, subsample_label: exam.subsample_label, genomico_exam_id: exam.genomico_exam_id)
     end
   end
 
@@ -31,7 +34,16 @@ class FishSlicesController < ApplicationController
   private
 
     def slice_params
-      params.require(:fish_slice).permit(:genomico_exam_id, :responsible_id, :responsible_login, :date, :subsample_id, :subsample_label, :probe)
+      params.require(:fish_slice).permit(
+        :genomico_exam_id,
+        :responsible_id,
+        :responsible_login,
+        :date,
+        :subsample_id,
+        :subsample_label,
+        :probe,
+        exam_attributes: [:patient, :name, :start_date, :subsample_label, :genomico_exam_id]
+      )
     end
 
     def exam_params

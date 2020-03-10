@@ -12,6 +12,15 @@
     <th>Responsável</th>
   </thead>
   <tbody>
-    <%# TODO: list slices %>
+    <% @slices.each do |slice| %>
+      <tr>
+        <td><%= slice.exam.patient %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
