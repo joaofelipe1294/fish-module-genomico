@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_06_193820) do
+ActiveRecord::Schema.define(version: 2020_03_09_131103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "slices", force: :cascade do |t|
+  create_table "exams", force: :cascade do |t|
+    t.string "name"
+    t.string "patient"
+    t.string "subsample_label"
+    t.bigint "fish_slice_id", null: false
+    t.date "start_date"
+    t.integer "genomico_exam_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["fish_slice_id"], name: "index_exams_on_fish_slice_id"
+  end
+
+  create_table "fish_slices", force: :cascade do |t|
     t.integer "responsible_id"
     t.string "responsible_login"
     t.date "date"
@@ -24,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_193820) do
     t.integer "probe"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "exam_id"
+    t.integer "genomico_exam_id"
   end
 
 end

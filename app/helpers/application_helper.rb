@@ -13,4 +13,12 @@ module ApplicationHelper
     end
   end
 
+  def list_title title
+    %Q(
+      <h2 class="text-center mt-3">
+        #{title}
+      </h2>
+      <hr>).html_safe
+  end
+
 end

@@ -1,0 +1,57 @@
+<%= render 'layouts/navbar' %>
+
+<div class="form-card">
+  <div class="card-header bg-primary">
+    <h2>
+      Nova lâmina
+    </h2>
+  </div>
+  <div class="card-body">
+    <%= form_with model: @slice, local: true do |form| %>
+      <%= show_errors @slice %>
+      <%= form.fields_for :exam_attributes do |exam_form| %>
+        <%= exam_form.hidden_field :patient, value: params[:patient], class: 'form-control'%>
+        <%= exam_form.hidden_field :name, value: params[:name], class: 'form-control' %>
+        <%= exam_form.hidden_field :start_date, value: params[:start_date], class: 'form-control' %>
+        <%= exam_form.hidden_field :subsample_label, value: params[:subsample_label], class: 'form-control' %>
+        <%= exam_form.hidden_field :genomico_exam_id, value: params[:genomico_exam_id], class: 'form-control' %>
+      <% end %>
+      <%= form.hidden_field :genomico_exam_id, value: params[:genomico_exam_id] %>
+      <div class="form-group">
+        <%= form.label :responsible_id %>
+        <%= form.select :responsible_id, options_from_collection_for_select(User.all, "id", "login"), {}, class: 'form-control' %>
+        <%= form.text_field :responsible_login, hidden: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :date %>
+        <%= form.date_field :date, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= form.label :probe %>
+        <%= form.select :probe, options_for_select(FishSlice.probes_for_select), {}, class: 'form-control' %>
+      </div>
+      <button id="btn-save" class="btn btn-outline-primary">
+        Salvar
+      </button>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+
+<script>
+
+  function set_user_login(){
+    let responsible_select = $('#fish_slice_responsible_id')
+    let selected_login = $('#fish_slice_responsible_id option:selected').text()
+    $('#fish_slice_responsible_login').val(selected_login)
+  }
+
+  $(document).on('turbolinks:load', () => set_user_login())
+  $('#fish_slice_responsible_id').on('change', () => set_user_login())
+
+</script>

@@ -1,0 +1,27 @@
+<%= render 'layouts/navbar' %>
+
+<%= list_title "Lâminas" %>
+
+<table>
+  <thead>
+    <th>Paciente</th>
+    <th>Exame</th>
+    <th>Data do preparo da lâmina</th>
+    <th>Amostra</th>
+    <th>Sonda</th>
+    <th>Responsável</th>
+  </thead>
+  <tbody>
+    <% @slices.each do |slice| %>
+      <tr class="fish-slice">
+        <td><%= slice.exam.patient %></td>
+        <td><%= slice.exam.name %></td>
+        <td><%= l slice.date %></td>
+        <td><%= slice.exam.subsample_label %></td>
+        <td><%= slice.probe_name %></td>
+        <td><%= slice.responsible_login %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= render 'layouts/table_footer', elements: @slices %>

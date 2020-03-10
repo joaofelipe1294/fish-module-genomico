@@ -1,5 +1,4 @@
-class Exam
-  include ActiveModel::Model
-
-  attr_accessor :id, :exam, :patient, :subsample_label, :started_at, :status, :sample_id, :subsample_label
+class Exam < ApplicationRecord
+  belongs_to :fish_slice
+  validates_presence_of :name, :patient, :start_date, :genomico_exam_id, :subsample_label
 end
