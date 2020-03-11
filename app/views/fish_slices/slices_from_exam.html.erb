@@ -7,6 +7,7 @@
     <th>Responsável</th>
     <th>Data de preparo da lâmina</th>
     <th>Sonda</th>
+    <th></th>
   </thead>
   <tbody>
     <% @slices.each do |slice| %>
@@ -14,6 +15,9 @@
         <td><%= slice.responsible_login %></td>
         <td><%= l slice.date %></td>
         <td><%= slice.probe_name %></td>
+        <td>
+          <%= link_to "Nova captura", new_scanning_path(slice_id: slice.id), class: 'btn btn-sm btn-outline-success' %>
+        </td>
       </tr>
     <% end %>
   </tbody>

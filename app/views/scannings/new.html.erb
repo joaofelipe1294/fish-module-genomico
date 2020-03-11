@@ -1,0 +1,48 @@
+<%= render 'layouts/navbar' %>
+
+<div class="form-card">
+  <div class="card-header bg-primary">
+    <h2>
+      Nova digitalização
+    </h2>
+  </div>
+  <div class="card-body">
+    <%= form_with model: @scanning, local: true do |form| %>
+      <%= show_errors @scanning %>
+      <%= form.hidden_field :fish_slice_id, value: params[:slice_id] %>
+      <div class="form-group">
+        <%= form.label :responsible_id %>
+        <%= form.select :responsible_id, options_from_collection_for_select(User.all, "id", "login"), {}, class: 'form-control' %>
+        <%= form.hidden_field :responsible_login %>
+      </div>
+      <div class="form-group">
+        <%= form.label :date %>
+        <%= form.date_field :date, class: 'form-control'%>
+      </div>
+      <div class="form-group">
+        <%= form.label "Imagens" %>
+        <br>
+        <%= form.file_field :images, multiple: true %>
+      </div>
+      <button id="btn-save" class="btn btn-outline-primary">
+        Salvar
+      </button>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+<script>
+
+  function set_user_login(){
+    let responsible_select = $('#scanning_responsible_id')
+    let selected_login = $('#scanning_responsible_id option:selected').text()
+    $('#scanning_responsible_login').val(selected_login)
+  }
+
+  $(document).on('turbolinks:load', () => set_user_login())
+  $('#scanning_responsible_id').on('change', () => set_user_login())
+
+</script>

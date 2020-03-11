@@ -2,7 +2,7 @@ class FishSlicesController < ApplicationController
   helper_method :users
 
   def index
-    @slices = FishSlice.all.order(date: :desc).page params[:page]
+    @slices = FishSlice.includes(:exam).all.order(date: :desc).page params[:page]
   end
 
   def new
@@ -28,7 +28,7 @@ class FishSlicesController < ApplicationController
   end
 
   def slices_from_exam
-    @slices = FishSlice.where(genomico_exam_id: params[:id])
+    @slices = FishSlice.includes(:exam).where(genomico_exam_id: params[:id])
   end
 
   private
