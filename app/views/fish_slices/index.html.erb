@@ -22,7 +22,7 @@
         <td><%= slice.probe_name %></td>
         <td><%= slice.responsible_login %></td>
         <td>
-          <%= link_to "Nova captura", new_scanning_path(slice_id: slice.id), class: 'btn btn-sm btn-outline-success' %>
+          <%= link_to "Nova captura", new_scanning_path(slice_id: slice.id), class: 'btn btn-sm btn-outline-success new-scanning' %>
         </td>
       </tr>
     <% end %>
