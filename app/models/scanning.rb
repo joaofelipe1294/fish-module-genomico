@@ -6,15 +6,19 @@ class Scanning < ApplicationRecord
   after_create_commit :generate_images
   has_many_attached :images
 
+  def valid_nucleus
+    # TODO: test method
+    total = 0
+    self.scanning_images.each { |image| total += image.valid_nucleus_found }
+    total
+  end
+
   private
 
     def generate_images
-      puts "----------------------- GENERATE IMAGES --------------------------"
       self.images.each do |image|
         ImageProcessorService.new({image: image, scanning: self}).call
-        # puts "PENDEJADA !!!"
       end
-      puts "--------------------- END GENERATE IMAGES ------------------------"
     end
 
 end
