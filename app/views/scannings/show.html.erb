@@ -34,14 +34,45 @@
             <h6 class="col-3 text-center">
               <%= "Núcleos válidos: #{image.valid_nucleus_found}"%>
             </h6>
-            <h6 class="col-3"></h6>
+            <div class="col-3">
+              <button class="btn btn-sm btn-outline-dark expand" data-value="<%= image.id%>">
+                <span class="fa fa-plus icon"></span>
+              </button>
+            </div>
           </div>
           <%= %>
         </div>
-        <div class="card-body" hidden>
-          <%= image_tag image.original, class: 'col-12' %>
+        <div id="image-<%= image.id%>" class="card-body image-card" style="display: none;">
+          <%= image_tag image.marked_image, class: 'col-12' %>
         </div>
       </div>
     <% end %>
   </div>
 </div>
+
+<script>
+  function change_button_icon(icon){
+    if(icon.hasClass('fa-plus')){
+      icon.removeClass('fa-plus');
+      icon.addClass('fa-minus');
+    }else{
+      icon.addClass('fa-plus');
+      icon.removeClass('fa-minus');
+    }
+  }
+
+  function find_button(event){
+    let clicked_element = event.target;
+    while(clicked_element.nodeName != 'BUTTON')
+      clicked_element = clicked_element.parentNode;
+    return $(clicked_element);
+  }
+
+  $('.expand').click( event => {
+    let button = find_button(event);
+    const element_id = button.attr('data-value');
+    $(`#image-${element_id}`).fadeToggle();
+    let icon = button.children();
+    change_button_icon(icon);
+  })
+</script>
