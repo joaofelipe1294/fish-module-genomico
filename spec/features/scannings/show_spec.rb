@@ -31,4 +31,34 @@ RSpec.feature "Scannings::Shows", type: :feature do
     end
   end
 
+  describe "display and hide image", js: true do
+    context "when user go to show view" do
+      it 'is expected to not have any image open' do
+        expect(page).not_to have_selector '.marked-image'
+      end
+      context "when click in expand button" do
+        before(:each) { click_button class: 'expand', match: :first }
+        it 'is expected to render image' do
+          expect(page).to have_selector '.marked-image'
+        end
+        it 'is expected to change button icon' do
+          expect(page).not_to have_selector '.fa-plus'
+          expect(page).to have_selector '.fa-minus'
+        end
+      end
+      context "when image is rendered and click on hide button" do
+        before :each do
+          click_button class: 'expand', match: :first
+          click_button class: 'expand', match: :first
+        end
+        it 'is expected to hide image' do
+          expect(page).not_to have_selector '.marked-image'
+        end
+        it 'is expected to change button icon' do
+          expect(page).to have_selector '.fa-plus'
+        end
+      end
+    end
+  end
+
 end
