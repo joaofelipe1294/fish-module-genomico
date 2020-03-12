@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :scanning_images
   resources :scannings
   resources :fish_slices
   get 'fish-slice/:id/scannings', to: 'fish_slices#scannings', as: :scannings_from_fish_slice
