@@ -61,4 +61,18 @@ RSpec.feature "Scannings::Shows", type: :feature do
     end
   end
 
+  describe "full screen image", js: true do
+    context "when user click in full-screen link" do
+      before :each do
+        click_button class: 'full-screen', match: :first
+      end
+      it 'is expected to render image' do
+        expect(page).to have_selector '#display-image-lg'
+      end
+      it 'is expected to render shade background' do
+        expect(page).to have_selector '#image-lg'
+      end
+    end
+  end
+
 end

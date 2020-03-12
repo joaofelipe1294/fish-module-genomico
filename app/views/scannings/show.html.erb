@@ -38,6 +38,9 @@
               <button class="btn btn-sm btn-outline-dark expand" data-value="<%= image.id%>">
                 <span class="fa fa-plus icon"></span>
               </button>
+              <button class="btn btn-sm btn-outline-info full-screen" data-value="<%= url_for(image.marked_image) %>">
+                <span class='fa fa-expand-alt'></span>
+              </button>
             </div>
           </div>
           <%= %>
@@ -48,6 +51,10 @@
       </div>
     <% end %>
   </div>
+</div>
+
+<div id="display-image-lg" class="full-screen-dark">
+  <img id="image-lg" src="" class="mt-5 full-screen-image">
 </div>
 
 <script>
@@ -75,4 +82,17 @@
     let icon = button.children();
     change_button_icon(icon);
   })
+
+  $('#display-image-lg').click(() => {
+    $('#display-image-lg').fadeToggle();
+    $('#image-lg').attr('src', '');
+  })
+
+  $('.full-screen').click((event) => {
+    let button = find_button(event);
+    let image_path = button.attr('data-value');
+    $('#image-lg').attr('src', image_path);
+    $('#display-image-lg').fadeToggle();
+  })
+
 </script>
