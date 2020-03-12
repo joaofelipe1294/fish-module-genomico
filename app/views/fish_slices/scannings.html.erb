@@ -1,0 +1,28 @@
+<%= render 'layouts/navbar' %>
+
+<%= list_title "Capturas" %>
+
+<table>
+  <thead>
+    <th>Data</th>
+    <th>Responsável</th>
+    <th>Sonda</th>
+    <th>Nucleos encontrados</th>
+    <th>Imagens</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @scannings.each do |scanning| %>
+      <tr class="scanning">
+        <td><%= l scanning.date %></td>
+        <td><%= scanning.responsible_login %></td>
+        <td><%= scanning.fish_slice.probe_name %></td>
+        <td><%= scanning.valid_nucleus %></td>
+        <td><%= scanning.scanning_images.size %></td>
+        <td>
+          <%= link_to "Captura", scanning %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

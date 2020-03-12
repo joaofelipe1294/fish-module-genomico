@@ -9,20 +9,20 @@
   <div class="card-body">
     <div class="form-group">
       <div class="row col-12">
-        <h4 class="col-4 text-center">
+        <h4 id="responsible" class="col-4 text-center">
           Responsável: <%= @scanning.responsible_login %>
         </h4>
-        <h4 class="col-4 text-center">
+        <h4  id="date" class="col-4 text-center">
           Data da captura: <%= l @scanning.date %>
         </h4>
-        <h4 class="col-4">
+        <h4 id="valid-nucleus" class="col-4 text-center">
           <%= "Núcleos válidos: #{@scanning.valid_nucleus}"%>
         </h4>
       </div>
       <hr>
     </div>
     <% @scanning.scanning_images.each do |image| %>
-      <div class="card col-10 p-0 offset-1 mb-4">
+      <div class="card col-10 p-0 offset-1 mb-4 scanning-image-card">
         <div class="card-header">
           <div class="row col-12">
             <h6 class="col-3 text-center">
@@ -38,16 +38,23 @@
               <button class="btn btn-sm btn-outline-dark expand" data-value="<%= image.id%>">
                 <span class="fa fa-plus icon"></span>
               </button>
+              <button class="btn btn-sm btn-outline-info full-screen" data-value="<%= url_for(image.marked_image) %>">
+                <span class='fa fa-expand-alt'></span>
+              </button>
             </div>
           </div>
           <%= %>
         </div>
-        <div id="image-<%= image.id%>" class="card-body image-card" style="display: none;">
+        <div id="image-<%= image.id%>" class="card-body image-card marked-image" style="display: none;">
           <%= image_tag image.marked_image, class: 'col-12' %>
         </div>
       </div>
     <% end %>
   </div>
+</div>
+
+<div id="display-image-lg" class="full-screen-dark">
+  <img id="image-lg" src="" class="mt-5 full-screen-image">
 </div>
 
 <script>
@@ -75,4 +82,17 @@
     let icon = button.children();
     change_button_icon(icon);
   })
+
+  $('#display-image-lg').click(() => {
+    $('#display-image-lg').fadeToggle();
+    $('#image-lg').attr('src', '');
+  })
+
+  $('.full-screen').click((event) => {
+    let button = find_button(event);
+    let image_path = button.attr('data-value');
+    $('#image-lg').attr('src', image_path);
+    $('#display-image-lg').fadeToggle();
+  })
+
 </script>

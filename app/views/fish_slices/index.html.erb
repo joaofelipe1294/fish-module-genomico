@@ -23,6 +23,9 @@
         <td><%= slice.responsible_login %></td>
         <td>
           <%= link_to "Nova captura", new_scanning_path(slice_id: slice.id), class: 'btn btn-sm btn-outline-success new-scanning' %>
+          <% unless slice.scannings.empty? %>
+            <%= link_to "Capturas", scannings_from_fish_slice_path(slice), class: 'btn btn-sm btn-outline-info scannings-from-fish-slice'%>
+          <% end %>
         </td>
       </tr>
     <% end %>

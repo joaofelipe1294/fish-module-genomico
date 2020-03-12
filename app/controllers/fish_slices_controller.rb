@@ -31,6 +31,10 @@ class FishSlicesController < ApplicationController
     @slices = FishSlice.includes(:exam).where(genomico_exam_id: params[:id])
   end
 
+  def scannings
+    @scannings = FishSlice.find(params[:id]).scannings.includes(:fish_slice).order(date: :desc)
+  end
+
   private
 
     def slice_params
