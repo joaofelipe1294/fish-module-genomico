@@ -4,6 +4,7 @@ class FishSlice < ApplicationRecord
   has_one :exam
   accepts_nested_attributes_for :exam
   paginates_per 10
+  has_many :scannings
   enum probe: {
     bcr_abl: 1,
   }
