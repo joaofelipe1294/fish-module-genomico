@@ -2,7 +2,7 @@ class FishSlice < ApplicationRecord
   include ResponsibleReference
   validates_presence_of :date, :probe, :genomico_exam_id
   has_one :exam
-  accepts_nested_attributes_for :exam
+  accepts_nested_attributes_for :exam, allow_destroy: true
   paginates_per 10
   has_many :scannings
   enum probe: {
