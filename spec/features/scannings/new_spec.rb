@@ -25,27 +25,17 @@ RSpec.feature "Scannings::News", type: :feature do
             expect(page).to have_selector '.error'
           end
         end
-        context "when fill ok" do
-          before :each do
-            visit new_scanning_path(slice_id: FishSlice.last.id)
-            fill_in 'scanning[date]', with: Date.current
-            attach_file "scanning[images][]", "#{Rails.root}/spec/support_images/IMAGE001.tif"
-            click_button id: 'btn-save'
-          end
-          it 'is expected to be redirected to show scanning' do
-            expect(page).to have_current_path scanning_path(Scanning.last)
-          end
-          it 'is expected to save values' do
-            scanning = Scanning.last
-            expect(scanning.date).to eq Date.current
-            expect(scanning.images.size).to eq 1
-          end
-          it 'is expected to generate scanning_images' do
-            expect(ScanningImage.all.size).to eq 1
-          end
-          it 'is expected to render success message' do
-            expect(find(id: 'success-message').text).to eq I18n.t :new_scanning_success
-          end
+        it "when fill ok" do
+          visit new_scanning_path(slice_id: FishSlice.last.id)
+          fill_in 'scanning[date]', with: Date.current
+          attach_file "scanning[images][]", "#{Rails.root}/spec/support_images/IMAGE001.tif"
+          click_button id: 'btn-save'
+          expect(page).to have_current_path scanning_path(Scanning.last)
+          scanning = Scanning.last
+          expect(scanning.date).to eq Date.current
+          expect(scanning.images.size).to eq 1
+          expect(ScanningImage.all.size).to eq 1
+          expect(find(id: 'success-message').text).to eq I18n.t :new_scanning_success
         end
       end
     end

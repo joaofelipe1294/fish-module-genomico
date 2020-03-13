@@ -7,7 +7,6 @@ class Scanning < ApplicationRecord
   has_many_attached :images
 
   def valid_nucleus
-    # TODO: test method
     total = 0
     self.scanning_images.each { |image| total += image.valid_nucleus_found }
     total

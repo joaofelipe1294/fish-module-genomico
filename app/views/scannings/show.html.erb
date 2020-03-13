@@ -9,15 +9,20 @@
   <div class="card-body">
     <div class="form-group">
       <div class="row col-12">
-        <h4 id="responsible" class="col-4 text-center">
+        <h5 id="responsible" class="col-3 text-center">
           Responsável: <%= @scanning.responsible_login %>
-        </h4>
-        <h4  id="date" class="col-4 text-center">
+        </h5>
+        <h5  id="date" class="col-3 text-center">
           Data da captura: <%= l @scanning.date %>
-        </h4>
-        <h4 id="valid-nucleus" class="col-4 text-center">
+        </h5>
+        <h5 id="valid-nucleus" class="col-3 text-center">
           <%= "Núcleos válidos: #{@scanning.valid_nucleus}"%>
-        </h4>
+        </h5>
+        <div class="float-right">
+          <%= link_to cells_from_scanning_path(@scanning), class: "btn btn-outline-primary" do %>
+            Núcleos <span class="fa fa-border-all"></span>
+          <% end %>
+        </div>
       </div>
       <hr>
     </div>
@@ -41,6 +46,9 @@
               <button class="btn btn-sm btn-outline-info full-screen" data-value="<%= url_for(image.marked_image) %>">
                 <span class='fa fa-expand-alt'></span>
               </button>
+              <%= link_to image, class: 'btn btn-sm btn-outline-primary' do %>
+                Núcleos <span class="fa fa-border-all"></span>
+              <% end %>
             </div>
           </div>
           <%= %>

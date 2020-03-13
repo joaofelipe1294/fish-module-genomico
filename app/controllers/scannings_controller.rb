@@ -1,10 +1,10 @@
 class ScanningsController < ApplicationController
+  before_action :set_scanning, only: [:show, :cells]
 
   def index
   end
 
   def show
-    @scanning = Scanning.find params[:id]
   end
 
   def new
@@ -21,6 +21,9 @@ class ScanningsController < ApplicationController
     end
   end
 
+  def cells
+  end
+
   private
 
     def scanning_params
@@ -31,6 +34,10 @@ class ScanningsController < ApplicationController
         :fish_slice_id,
         images: []
       )
+    end
+
+    def set_scanning
+      @scanning = Scanning.includes(:scanning_images).find params[:id]
     end
 
 end
