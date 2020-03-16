@@ -1,9 +1,152 @@
 <%= render 'layouts/navbar' %>
 
+<div id="single-nucleus-card" class="card col-4 p-0 offset-4" style="display: none;">
+  <div class="card-header">
+    <span id="channel-paths" hidden></span>
+    <button id="blue-channel" class="btn btn-primary with-blue">Azul</button>
+    <button id="green-channel" class="btn btn-success with-green">Verde</button>
+    <button id="red-channel" class="btn btn-danger with-red">Vermelho</button>
+  </div>
+  <div class="card-body">
+    <img id="single-nucleus" src="" class="col-12">
+  </div>
+</div>
+
+<div id="shade" style="position: absolute; top: 0px; left: 0px; right: 0px; background-color: rgba(0, 0, 0, 0.7); z-index: 2; display: none;">
+</div>
+
+
 <div class="mt-5 p-5" style="background-color: rgba(0, 0, 0, .65)">
   <% @scanned_image.scanned_cells.each do |cell| %>
     <div class="card d-inline-block" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px;">
-      <%= image_tag cell.rgb, style: {width: 125, height: 125}, data_value: {"red": url_for(cell.red), "green": url_for(cell.green), "blue": url_for(cell.blue), "rgb": url_for(cell.rgb), "blue_green": url_for(cell.blue_green), "blue_red": url_for(cell.blue_green), "green_red": url_for(cell.green_red)} %>
+      <%= image_tag cell.rgb, class: "cell", style: {width: 125, height: 125}, data_value: {
+        "red": url_for(cell.red),
+        "green": url_for(cell.green),
+        "blue": url_for(cell.blue),
+        "rgb": url_for(cell.rgb),
+        "blue_green": url_for(cell.blue_green),
+        "blue_red": url_for(cell.blue_red),
+        "green_red": url_for(cell.green_red)}.to_json %>
     </div>
   <% end %>
 </div>
+
+<script>
+
+  function reset_buttons(){
+    let blue = $("#blue-channel");
+    if (blue.hasClass('with-blue') === false){
+      blue.addClass('with-blue');
+      blue.addClass('btn-primary');
+      blue.removeClass('btn-outline-primary');
+    }
+    let green = $("#green-channel");
+    if (green.hasClass('with-green') === false){
+      green.addClass('with-green');
+      green.addClass('btn-success');
+      green.removeClass('btn-outline-success');
+    }
+    let red = $("#red-channel");
+    if (red.hasClass('with-red') === false){
+      red.addClass('with-red');
+      red.addClass('btn-danger');
+      red.removeClass('btn-outline-danger');
+    }
+  }
+
+  $('.cell').click(event => {
+    reset_buttons();
+    let cell_image = $(event.target);
+    let cell_channels = JSON.parse(cell_image.attr('data_value'));
+    $("#channel-paths").text((JSON.stringify(cell_channels)));
+    $("#single-nucleus").attr('src', cell_channels.rgb);
+    let image_card = $("#single-nucleus-card");
+    image_card.css("position", "absolute");
+    image_card.css("z-index", "3");
+    image_card.css("margin-top", "8%");
+    image_card.css("top", $(window).scrollTop());
+    image_card.fadeToggle();
+    $("#shade").css('bottom', -1 * $(document).height())
+    $('#shade').toggle();
+  })
+
+  $("#shade").click(() => {
+    $("#shade").toggle();
+    $("#single-nucleus-card").fadeToggle();
+  })
+</script>
+
+<script>
+
+  function find_channels(){
+    let blue = $("#blue-channel").hasClass('with-blue');
+    let green = $("#green-channel").hasClass('with-green');
+    let red = $("#red-channel").hasClass('with-red');
+    return { "blue": blue, "green": green, "red": red };
+  }
+
+  function reload_image(){
+    const image_paths = JSON.parse($("#channel-paths").text());
+    let channels = find_channels();
+    let nucleus_image = $('#single-nucleus');
+    if (channels["blue"] && channels["green"] && channels["red"]){
+      nucleus_image.attr('src', image_paths.rgb);
+    } else if (channels["blue"]){
+      if (channels["red"])
+        nucleus_image.attr('src', image_paths.blue_red);
+      else if (channels["green"])
+        nucleus_image.attr('src', image_paths.blue_green);
+      else
+        nucleus_image.attr('src', image_paths.blue);
+    } else if (channels["red"]){
+      if (channels["green"])
+        nucleus_image.attr('src', image_paths.green_red);
+      else
+        nucleus_image.attr('src', image_paths.red);
+    } else
+      nucleus_image.attr('src', image_paths.green);
+  }
+
+  $("#blue-channel").click(() => {
+    let blue = $("#blue-channel");
+    if (blue.hasClass('with-blue')){
+      blue.removeClass('with-blue');
+      blue.removeClass('btn-primary');
+      blue.addClass('btn-outline-primary');
+    }else{
+      blue.removeClass('btn-outline-primary');
+      blue.addClass('btn-primary');
+      blue.addClass('with-blue');
+    }
+    reload_image();
+  })
+
+  $("#red-channel").click(() => {
+    let red = $("#red-channel");
+    if (red.hasClass('with-red')){
+      red.removeClass('with-red');
+      red.removeClass('btn-danger');
+      red.addClass('btn-outline-danger');
+    }else{
+      red.removeClass('btn-outline-danger');
+      red.addClass('btn-danger');
+      red.addClass('with-red');
+    }
+    reload_image();
+  });
+
+  $("#green-channel").click(() => {
+    let green = $("#green-channel");
+    if (green.hasClass('with-green')){
+      green.removeClass('with-green');
+      green.removeClass('btn-success');
+      green.addClass('btn-outline-success');
+    }else{
+      green.removeClass('btn-outline-success');
+      green.addClass('btn-success');
+      green.addClass('with-green');
+    }
+    reload_image();
+  });
+
+</script>
