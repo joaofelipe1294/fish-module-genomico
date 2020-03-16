@@ -23,8 +23,16 @@ class ScannedCell < ApplicationRecord
     find_image "red_nucleus"
   end
 
-  def red_green
-    find_image "red"
+  def green_red
+    find_image "green_red_nucleus"
+  end
+
+  def blue_green
+    find_image "blue_green_nucleus"
+  end
+
+  def blue_red
+    find_image "blue_red_nucleus"
   end
 
   private
