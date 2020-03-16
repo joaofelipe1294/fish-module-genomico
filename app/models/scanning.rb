@@ -5,6 +5,7 @@ class Scanning < ApplicationRecord
   has_many :scanning_images
   after_create_commit :generate_images
   has_many_attached :images
+  before_validation :set_initial_status
   enum process_status: {
     waiting_start: 1,
     processing_image: 2,
@@ -24,6 +25,10 @@ class Scanning < ApplicationRecord
       self.images.each do |image|
         ImageProcessorService.new({image: image, scanning: self}).call
       end
+    end
+
+    def set_initial_status
+      self.process_status = :waiting_start unless self.process_status
     end
 
 end

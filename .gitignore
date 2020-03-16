@@ -38,3 +38,5 @@ yarn-debug.log*
 marked.png
 original.png
 *.png
+
+vagrant_files/shell_scripts/redis/
