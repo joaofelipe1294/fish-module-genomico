@@ -5,6 +5,12 @@ class Scanning < ApplicationRecord
   has_many :scanning_images
   after_create_commit :generate_images
   has_many_attached :images
+  enum process_status: {
+    waiting_start: 1,
+    processing_image: 2,
+    processing_nucleuses: 3,
+    processed: 4
+  }
 
   def valid_nucleus
     total = 0
