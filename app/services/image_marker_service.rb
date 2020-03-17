@@ -23,7 +23,7 @@ class ImageMarkerService
 
     def setup_scanning_image
       scanning_image = ScanningImage.new(scanning: @scanning)
-      scanning_image.original.attach(io: File.open(@image_data["original"]), filename: 'original.png', content_type: 'image/png')
+      scanning_image.png_image.attach(io: File.open(@image_data["original"]), filename: 'original.png', content_type: 'image/png')
       scanning_image.marked_image.attach(io: File.open(@image_data["marked"]), filename: 'marked.png', content_type: 'image/png')
       scanning_image
     end
