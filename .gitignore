@@ -40,3 +40,4 @@ original.png
 *.png
 
 vagrant_files/shell_scripts/redis/
+*.rdb

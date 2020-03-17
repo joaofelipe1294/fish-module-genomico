@@ -13,6 +13,7 @@ module FishModuleGenomico
     config.time_zone = 'Brasilia'
     config.i18n.default_locale = :"pt-BR"
     config.active_job.queue_adapter = :sidekiq
+    config.web_console.whiny_requests = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
