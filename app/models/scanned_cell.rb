@@ -1,6 +1,7 @@
 class ScannedCell < ApplicationRecord
   belongs_to :scanning_image
   before_validation :set_label
+  after_create_commit :extract_color_channels_job
   has_many_attached :images
   enum label: {
     positive: 1,
@@ -47,6 +48,10 @@ class ScannedCell < ApplicationRecord
         channel_image = image if image.filename.to_s == "#{channel}.png"
       end
       channel_image
+    end
+
+    def extract_color_channels_job
+      NucleusChannelExtractionJob.perform_later(self)
     end
 
 end
