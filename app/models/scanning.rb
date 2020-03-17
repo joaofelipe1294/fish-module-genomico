@@ -9,6 +9,7 @@ class Scanning < ApplicationRecord
   enum process_status: {
     waiting_start: 1,
     processing_image: 2,
+    image_marked: 5,
     processing_nucleuses: 3,
     processed: 4
   }
@@ -23,7 +24,7 @@ class Scanning < ApplicationRecord
 
     def generate_images
       self.images.each do |image|
-        ImageProcessorService.new({image: image, scanning: self}).call
+        ConvertAndMarkImageJob.perform_later({image: image, scanning: self})
       end
     end
 
