@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_172230) do
+ActiveRecord::Schema.define(version: 2020_03_17_141907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2020_03_16_172230) do
     t.integer "valid_nucleus_found"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "process_status"
     t.index ["scanning_id"], name: "index_scanning_images_on_scanning_id"
   end
 
