@@ -1,5 +1,5 @@
 class ConvertAndMarkImageJob < ApplicationJob
-  queue_as :default
+  queue_as :mark_image
 
   def perform(params)
     scanning = params[:scanning]

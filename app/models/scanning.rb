@@ -15,9 +15,10 @@ class Scanning < ApplicationRecord
   }
 
   def valid_nucleus
+    return "<span class='text-info'>Processando</span> <span class='text-info fa fa-spinner'></span>".html_safe unless self.processed?
     total = 0
     self.scanning_images.each { |image| total += image.valid_nucleus_found }
-    total
+    "Núcleos válidos: #{total}"
   end
 
   private
