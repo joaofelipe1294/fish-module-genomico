@@ -1,0 +1,11 @@
+---
+:concurrency: 4
+staging:
+  :concurrency: 4
+production:
+  :concurrency: 4
+:queues:
+  - default
+  - mark_image
+  - extract_nucleus
+  - extract_channels

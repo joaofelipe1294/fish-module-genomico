@@ -13,12 +13,6 @@ RSpec.describe ScanningImage, type: :model do
       it 'scanning' do
         @scanning_image.scanning = nil
       end
-      it 'total_nucleus_found' do
-        @scanning_image.total_nucleus_found = nil
-      end
-      it 'valid_nucleus_found' do
-        @scanning_image.valid_nucleus_found = nil
-      end
     end
   end
 

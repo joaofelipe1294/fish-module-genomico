@@ -18,5 +18,5 @@ test:
 production:
   <<: *default
   database: fish_module_genomico_production
-  username: fish_module_genomico
-  password: <%= ENV['FISH_MODULE_GENOMICO_DATABASE_PASSWORD'] %>
+  username: postgres
+  password: 1234

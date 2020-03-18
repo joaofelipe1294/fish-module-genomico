@@ -5,19 +5,32 @@ class Scanning < ApplicationRecord
   has_many :scanning_images
   after_create_commit :generate_images
   has_many_attached :images
+  before_validation :set_initial_status
+  enum process_status: {
+    waiting_start: 1,
+    processing_image: 2,
+    image_marked: 5,
+    processing_nucleuses: 3,
+    processed: 4
+  }
 
   def valid_nucleus
+    return "<span class='text-info'>Processando</span> <span class='text-info fa fa-spinner'></span>".html_safe unless self.processed?
     total = 0
     self.scanning_images.each { |image| total += image.valid_nucleus_found }
-    total
+    "Núcleos válidos: #{total}"
   end
 
   private
 
     def generate_images
       self.images.each do |image|
-        ImageProcessorService.new({image: image, scanning: self}).call
+        ConvertAndMarkImageJob.perform_later({image: image, scanning: self})
       end
+    end
+
+    def set_initial_status
+      self.process_status = :waiting_start unless self.process_status
     end
 
 end

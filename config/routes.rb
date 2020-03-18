@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   resources :scanning_images
   resources :scannings
@@ -6,4 +8,5 @@ Rails.application.routes.draw do
   get 'exam/:id/slices', to: 'fish_slices#slices_from_exam', as: :slices_from_exam
   get 'scanning/:id/cells', to: 'scannings#cells', as: :cells_from_scanning
   root to: 'home#index'
+  mount Sidekiq::Web => '/sidekiq'
 end

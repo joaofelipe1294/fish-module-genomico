@@ -9,20 +9,22 @@
   <div class="card-body">
     <div class="form-group">
       <div class="row col-12">
-        <h5 id="responsible" class="col-3 text-center">
+        <h5 id="responsible" class="<%= @scanning.processed? ?  "col-3" : "col-4" %> text-center">
           Responsável: <%= @scanning.responsible_login %>
         </h5>
-        <h5  id="date" class="col-3 text-center">
+        <h5  id="date" class="<%= @scanning.processed? ?  "col-3" : "col-4" %> text-center">
           Data da captura: <%= l @scanning.date %>
         </h5>
-        <h5 id="valid-nucleus" class="col-3 text-center">
-          <%= "Núcleos válidos: #{@scanning.valid_nucleus}"%>
+        <h5 id="valid-nucleus" class="<%= @scanning.processed? ?  "col-3" : "col-4" %> text-center">
+          <%= @scanning.valid_nucleus %>
         </h5>
-        <div class="float-right">
-          <%= link_to cells_from_scanning_path(@scanning), class: "btn btn-outline-primary" do %>
-            Núcleos <span class="fa fa-border-all"></span>
-          <% end %>
-        </div>
+        <% if @scanning.processed? %>
+          <div class="float-right">
+            <%= link_to cells_from_scanning_path(@scanning), class: "btn btn-outline-primary" do %>
+              Núcleos <span class="fa fa-border-all"></span>
+            <% end %>
+          </div>
+        <% end %>
       </div>
       <hr>
     </div>
