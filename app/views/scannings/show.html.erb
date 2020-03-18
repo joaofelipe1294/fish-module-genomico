@@ -48,10 +48,8 @@
               <button class="btn btn-sm btn-outline-info full-screen" data-value="<%= url_for(image.marked_image) %>">
                 <span class='fa fa-expand-alt'></span>
               </button>
-              <% if @scanning.processed? %>
-                <%= link_to image, class: 'btn btn-sm btn-outline-primary' do %>
-                  Núcleos <span class="fa fa-border-all"></span>
-                <% end %>
+              <%= link_to image, class: 'btn btn-sm btn-outline-primary' do %>
+                Núcleos <span class="fa fa-border-all"></span>
               <% end %>
             </div>
           </div>
