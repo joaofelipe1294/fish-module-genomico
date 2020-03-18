@@ -1,0 +1,28 @@
+[Unit]
+Description=sidekiq
+After=syslog.target network.target
+
+[Service]
+Type=notify
+WatchdogSec=5
+
+WorkingDirectory=/home/vagrant/fish-module-genomico
+ExecStart=/bin/bash -lc 'exec /home/vagrant/.rbenv/shims/bundle exec sidekiq -e production'
+ExecReload=/usr/bin/kill -TSTP $MAINPID
+
+User=vagrant
+Group=vagrant
+UMask=0002
+
+Environment=MALLOC_ARENA_MAX=2
+
+RestartSec=1
+Restart=on-failure
+
+StandardOutput=syslog
+StandardError=syslog
+
+SyslogIdentifier=sidekiq
+
+[Install]
+WantedBy=multi-user.target
