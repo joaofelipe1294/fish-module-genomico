@@ -10,7 +10,8 @@ class ScanningImage < ApplicationRecord
   enum process_status: {
     waiting_start: 1,
     extracting_nucleus: 2,
-    complete: 3
+    extracting_channels: 3,
+    complete: 4
   }
 
   private
