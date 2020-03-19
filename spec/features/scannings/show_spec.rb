@@ -17,24 +17,7 @@ RSpec.feature "Scannings::Shows", type: :feature do
     expect(find(id: 'date').text).to match I18n.l(@scanning.date)
     expect(page).to have_selector '#valid-nucleus'
     expect(find(id: 'valid-nucleus').text).not_to match "0"
-    expect(page).to have_selector '.scanning-image-card'
-    expect(find_all(class: 'scanning-image-card').size).to eq 1
-  end
-
-  it "check show and hide image", js: true do
-    expect(page).not_to have_selector '.marked-image'
-    click_button class: 'expand', match: :first
-    expect(page).to have_selector '.marked-image'
-    expect(page).not_to have_selector '.fa-plus'
-    expect(page).to have_selector '.fa-minus'
-    click_button class: 'expand', match: :first
-    expect(page).not_to have_selector '.marked-image'
-    expect(page).to have_selector '.fa-plus'
-  end
-
-  it "check full screen", js: true do
-    click_button class: 'full-screen', match: :first
-    expect(page).to have_selector '#image-lg'
+    expect(page).not_to have_selector '.scanning-image-card'
   end
 
 end
