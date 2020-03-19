@@ -1,65 +1,127 @@
-<table class="table-bordered">
-  <thead>
-    <th>Imagem</th>
-    <th>Iniciado em</th>
-    <th>Aguardando início</th>
-    <th>Marcando núcleos</th>
-    <th>Extraindo núcleos</th>
-    <th>Processando núcleos</th>
-    <th></th>
-  </thead>
-  <tbody id="pending-images">
-  </tbody>
-</table>
+<div id="processing-elements">
+  <h2 class="text-center mt-5">
+    Imagens em processamento
+  </h2>
+  <hr>
 
+  <table class="col-10 offset-1">
+    <thead>
+      <th>Imagem</th>
+      <th>Iniciado em</th>
+      <th class="col-2">Detectando núcleos</th>
+      <th class="col-2">Extraindo núcleos</th>
+      <th class="col-2">Processando núcleos</th>
+    </thead>
+    <tbody id="pending-images">
+    </tbody>
+  </table>
+</div>
 
 <script>
 
-  function waiting_start(status){
-    if (status === "waiting_start" || status === "marking_image" || status === "extracting_nucleus")
-      return "bg-dark";
-  }
-
   function marking_image(status){
-    if (status === "marking_image" || status === 'extracting_nucleus'){
-      return "bg-secondary";
+    if (status === "marking_image"){
+      return "Processando";
+    }else if ( status === 'extracting_nucleus' || status === "processing_nucleus"){
+      return "<span class='text-primary'>Concluído</span>";
     }
   }
 
   function extracting_nucleus(status){
     if (status === "extracting_nucleus"){
-      return "bg-info";
+      return "Processando";
+    } else if (status === "processing_nucleus"){
+      return "<span class='text-info'>Concluído</span>";
+    }else{
+      return "";
     }
   }
 
   function processing_nucleus(status){
     if (status === "processing_nucleus"){
-      return "bg-primary";
+      return "Processando";
+    }else{
+      return "";
     }
   }
 
-  $(document).on('turbolinks:load', () => {
+  function line_builder(processing_image){
+    $("#pending-images").append(`
+      <tr id="${processing_image.id}-image" class="processing-image">
+        <td>${processing_image.id}</td>
+        <td>${processing_image.start_processing_at}</td>
+        <td class="marking_image">${marking_image(processing_image.status)}</td>
+        <td class="extracting_nucleus">${extracting_nucleus(processing_image.status)}</td>
+        <td class="processing_nucleus">${processing_nucleus(processing_image.status)}</td>
+      </tr>
+      `).hide().fadeIn(800)
+    return $(`#${processing_image.id}-image`)
+  }
+
+  function remove_complete_lines(updated_lines){
+    let updated_ids = updated_lines.map(line => line.id );
+    let keys = Object.keys(virtual_table);
+    let displayed_elements = keys.map(key => virtual_table[key]);
+    displayed_elements.forEach(element => {
+      if (updated_ids.includes(element.id) === false){
+        element.dom.fadeOut(800);
+      }
+    })
+  }
+
+  function check_lines(updated_lines){
+    remove_complete_lines(updated_lines);
+    updated_lines.forEach(line => {
+      let keys = Object.keys(virtual_table);
+      if (keys.includes(line.id.toString()) === false){
+        let dom_element = line_builder(line);
+        let element = {
+          id: line.id,
+          dom: dom_element,
+          current_status: line.status
+        }
+        virtual_table[line.id.toString()] = element;
+      } else {
+        let virtual_image = virtual_table[line.id.toString()];
+        if (virtual_image.current_status !== line.status) {
+          if (line.status === "extracting_nucleus"){
+            let previous = virtual_image.dom.children('.marking_image')
+            previous.text("")
+            previous.append(`<span class="text-primary">Concluído</span>`)
+            let cell = virtual_image.dom.children('.extracting_nucleus')
+          } else if (line.status === 'processing_nucleus') {
+            let previous_cell = virtual_image.dom.children('.extracting_nucleus').first();
+            previous_cell.text("");
+            previous_cell.append("<span class='text-info'>Concluído</span>");
+            let cell = virtual_image.dom.children('.processing_nucleus');
+            cell.text("Processando");
+          }
+          virtual_table[line.id.toString()].current_status = line.status;
+        }
+      }
+    })
+  }
+
+  function reload_processing_table(){
     $.ajax({
       url: '/scanning-images/processing',
       success: (response) => {
-        console.log(response);
-        response.forEach((processing_image) => {
-          $("#pending-images").append(`
-            <tr>
-              <td>${processing_image.id}</td>
-              <td>${processing_image.start_processing_at}</td>
-              <td class="${waiting_start(processing_image.status)}"></td>
-              <td class="${marking_image(processing_image.status)}"></td>
-              <td class="${extracting_nucleus(processing_image.status)}"></td>
-              <td class="${processing_nucleus(processing_image.status)}"></td>
-              <td</td>
-            </tr>
-            `)
-        })
+        if (response.length === 0)
+          $("#processing-elements").hide()
+        else{
+          $("#processing-elements").show()
+          check_lines(response);
+        }
       },
       error: (error) => {
-        console.log('Ero');
+        console.log("Erro ao obter dados do servidor.");
       }
-    })
+    });
+  }
+
+  var virtual_table = {};
+
+  $(document).on('turbolinks:load', () => {
+    setInterval(reload_processing_table, 500);
   });
 </script>
