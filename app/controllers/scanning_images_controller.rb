@@ -16,4 +16,11 @@ class ScanningImagesController < ApplicationController
     render json: images
   end
 
+  def complete
+    @scanning_images = ScanningImage.complete.order(created_at: :desc)
+  end
+
+  def processing_progress
+  end
+
 end
