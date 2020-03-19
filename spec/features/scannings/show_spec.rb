@@ -5,7 +5,7 @@ RSpec.feature "Scannings::Shows", type: :feature do
   before :each do
     fish_slice = create(:fish_slice, exam: build(:exam))
     @scanning = build(:scanning, fish_slice: fish_slice)
-    @scanning.images.attach(io: File.open("#{Rails.root}/spec/support_images/IMAGE001.tif"), filename: 'some_image.tif', content_type: 'image/tif')
+    @scanning.images.attach(io: File.open("#{Rails.root}/spec/support_images/SMALL_IMAGE.tif"), filename: 'some_image.tif', content_type: 'image/tif')
     @scanning.save
     visit scanning_path(@scanning)
   end
