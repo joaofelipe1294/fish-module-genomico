@@ -20,4 +20,7 @@ class ScanningImagesController < ApplicationController
     @scanning_images = ScanningImage.complete.order(created_at: :desc)
   end
 
+  def processing_progress
+  end
+
 end
