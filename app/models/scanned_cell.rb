@@ -68,7 +68,7 @@ class ScannedCell < ApplicationRecord
     def check_if_all_nucleus_are_processed
       scanning_image = self.scanning_image
       if scanning_image.scanned_cells.complete.size > scanning_image.scanned_cells.size * 0.75
-        scanning_image.update process_status: :complete
+        scanning_image.update(process_status: :complete, finish_processing_at: DateTime.current)
       end
     end
 

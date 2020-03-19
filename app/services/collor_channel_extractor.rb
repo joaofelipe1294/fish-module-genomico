@@ -35,5 +35,5 @@ class CollorChannelExtractor
       result = `python3 /home/vagrant/fish-core/channel_extractor.py #{image_path}`
       @image_data = JSON.parse result
     end
-  
+
 end
