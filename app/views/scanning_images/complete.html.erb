@@ -30,6 +30,7 @@
         <td><%= l(image.start_processing_at) %></td>
         <td><%= l image.finish_processing_at %></td>
         <td><%= distance_of_time_in_words(image.finish_processing_at - image.start_processing_at) %></td>
+        <td><%= link_to "Visualizar", image %></td>
       </tr>
     <% end %>
   </tbody>

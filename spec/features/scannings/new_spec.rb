@@ -34,7 +34,7 @@ RSpec.feature "Scannings::News", type: :feature do
             click_button id: 'btn-save'
           end
           it 'is expected to be redirected to root_path' do
-            expect(page).to have_current_path root_path
+            expect(page).to have_current_path processing_progress_path
           end
           it 'is expected to save values' do
             scanning = Scanning.last
