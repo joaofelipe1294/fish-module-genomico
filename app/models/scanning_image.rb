@@ -9,9 +9,10 @@ class ScanningImage < ApplicationRecord
   before_validation :set_process_status
   enum process_status: {
     waiting_start: 1,
-    extracting_nucleus: 2,
-    extracting_channels: 3,
-    complete: 4
+    marking_image: 2,
+    extracting_nucleus: 3,
+    processing_nucleus: 4,
+    complete: 5
   }
 
   private

@@ -7,6 +7,7 @@ class NucleusExtractorService
   end
 
   def call
+    @scanning_image.update(process_status: :extracting_nucleus)
     extract_image_data
     nucleus_paths = @image_data["nucleus"]
     @scanning_image.update(valid_nucleus_found: nucleus_paths.size, total_nucleus_found: nucleus_paths.size)

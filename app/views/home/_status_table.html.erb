@@ -1,4 +1,4 @@
-<table>
+<table class="table-bordered">
   <thead>
     <th>Imagem</th>
     <th>Iniciado em</th>
@@ -6,9 +6,60 @@
     <th>Marcando núcleos</th>
     <th>Extraindo núcleos</th>
     <th>Processando núcleos</th>
-    <th>Completo</th>
     <th></th>
   </thead>
   <tbody id="pending-images">
   </tbody>
 </table>
+
+
+<script>
+
+  function waiting_start(status){
+    if (status === "waiting_start" || status === "marking_image" || status === "extracting_nucleus")
+      return "bg-dark";
+  }
+
+  function marking_image(status){
+    if (status === "marking_image" || status === 'extracting_nucleus'){
+      return "bg-secondary";
+    }
+  }
+
+  function extracting_nucleus(status){
+    if (status === "extracting_nucleus"){
+      return "bg-info";
+    }
+  }
+
+  function processing_nucleus(status){
+    if (status === "processing_nucleus"){
+      return "bg-primary";
+    }
+  }
+
+  $(document).on('turbolinks:load', () => {
+    $.ajax({
+      url: '/scanning-images/processing',
+      success: (response) => {
+        console.log(response);
+        response.forEach((processing_image) => {
+          $("#pending-images").append(`
+            <tr>
+              <td>${processing_image.id}</td>
+              <td>${processing_image.start_processing_at}</td>
+              <td class="${waiting_start(processing_image.status)}"></td>
+              <td class="${marking_image(processing_image.status)}"></td>
+              <td class="${extracting_nucleus(processing_image.status)}"></td>
+              <td class="${processing_nucleus(processing_image.status)}"></td>
+              <td</td>
+            </tr>
+            `)
+        })
+      },
+      error: (error) => {
+        console.log('Ero');
+      }
+    })
+  });
+</script>

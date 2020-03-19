@@ -11,6 +11,7 @@ class ImageMarkerService
     set_image_data
     @scanning_image = setup_scanning_image
     @scanning_image.save
+    # @scanning_image.update(process_status: :marking_image)
   end
 
   private
@@ -22,7 +23,7 @@ class ImageMarkerService
     end
 
     def setup_scanning_image
-      scanning_image = ScanningImage.new(scanning: @scanning, start_processing_at: DateTime.current)
+      scanning_image = ScanningImage.new(scanning: @scanning, start_processing_at: DateTime.current, process_status: :marking_image)
       scanning_image.png_image.attach(io: File.open(@image_data["original"]), filename: 'original.png', content_type: 'image/png')
       scanning_image.marked_image.attach(io: File.open(@image_data["marked"]), filename: 'marked.png', content_type: 'image/png')
       scanning_image
