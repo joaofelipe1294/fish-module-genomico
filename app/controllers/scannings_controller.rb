@@ -15,7 +15,7 @@ class ScanningsController < ApplicationController
     @scanning = Scanning.new scanning_params
     if @scanning.save
       flash[:success] = I18n.t :new_scanning_success
-      redirect_to root_path
+      redirect_to processing_progress_path
     else
       render :new
     end
