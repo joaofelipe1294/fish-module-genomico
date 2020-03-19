@@ -11,7 +11,6 @@ class ImageMarkerService
     set_image_data
     @scanning_image = setup_scanning_image
     @scanning_image.save
-    # @scanning_image.update(process_status: :marking_image)
   end
 
   private

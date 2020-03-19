@@ -1,4 +1,7 @@
 "pt-BR":
+  time:
+    formats:
+      default: '%d/%m/%y %H:%M:%S'
   enums:
     fish_slice:
       probes:
