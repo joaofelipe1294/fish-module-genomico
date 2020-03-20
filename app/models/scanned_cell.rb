@@ -3,6 +3,7 @@ class ScannedCell < ApplicationRecord
   before_validation :set_label
   before_validation :set_process_status
   has_one_attached :rgb
+  paginates_per 45
   enum label: {
     positive: 1,
     negative: 0

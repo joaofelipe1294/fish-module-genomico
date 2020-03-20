@@ -16,12 +16,13 @@
 </div>
 
 
-<div class="mt-5 p-5" style="background-color: rgba(0, 0, 0, .65)">
-  <% @scanned_image.scanned_cells.each do |cell| %>
+<div class="p-5" style="background-color: rgba(0, 0, 0, .65)">
+  <% @scanned_cells.each do |cell| %>
     <div class="card d-inline-block" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px;">
       <%= image_tag cell.rgb, class: "cell", style: {width: 125, height: 125}, data_value: cell.id %>
     </div>
   <% end %>
+  <%= render 'layouts/table_footer', elements: @scanned_cells %>
 </div>
 
 <script>
@@ -47,20 +48,24 @@
     }
   }
 
-  $('.cell').click(event => {
-    reset_buttons();
-    let cell_image = $(event.target);
-    let cell_channels = JSON.parse(cell_image.attr('data_value'));
-    $("#channel-paths").text((JSON.stringify(cell_channels)));
-    $("#single-nucleus").attr('src', cell_channels.rgb);
-    let image_card = $("#single-nucleus-card");
-    image_card.css("position", "absolute");
-    image_card.css("z-index", "3");
-    image_card.css("margin-top", "8%");
-    image_card.css("top", $(window).scrollTop());
-    image_card.fadeToggle();
-    $("#shade").css('bottom', -1 * $(document).height())
-    $('#shade').toggle();
+  // $('.cell').click(event => {
+  //   reset_buttons();
+  //   let cell_image = $(event.target);
+  //   let cell_channels = JSON.parse(cell_image.attr('data_value'));
+  //   $("#channel-paths").text((JSON.stringify(cell_channels)));
+  //   $("#single-nucleus").attr('src', cell_channels.rgb);
+  //   let image_card = $("#single-nucleus-card");
+  //   image_card.css("position", "absolute");
+  //   image_card.css("z-index", "3");
+  //   image_card.css("margin-top", "8%");
+  //   image_card.css("top", $(window).scrollTop());
+  //   image_card.fadeToggle();
+  //   $("#shade").css('bottom', -1 * $(document).height())
+  //   $('#shade').toggle();
+  // })
+
+  $('.cell').on('click', (event) => {
+    console.log(event.target);
   })
 
   $("#shade").click(() => {
