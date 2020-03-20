@@ -9,18 +9,18 @@
   <div class="card-body">
     <div class="form-group">
       <div class="row col-12">
-        <h5 id="responsible" class="<%= @scanning.processed? ?  "col-3" : "col-4" %> text-center">
+        <h5 id="responsible" class="<%= @scanning.complete? ?  "col-3" : "col-4" %> text-center">
           Responsável: <%= @scanning.responsible_login %>
         </h5>
-        <h5  id="date" class="<%= @scanning.processed? ?  "col-3" : "col-4" %> text-center">
+        <h5  id="date" class="<%= @scanning.complete? ?  "col-3" : "col-4" %> text-center">
           Data da captura: <%= l @scanning.date %>
         </h5>
-        <h5 id="valid-nucleus" class="<%= @scanning.processed? ?  "col-3" : "col-4" %> text-center">
+        <h5 id="valid-nucleus" class="<%= @scanning.complete? ?  "col-3" : "col-4" %> text-center">
           <%= @scanning.valid_nucleus %>
         </h5>
-        <% if @scanning.processed? %>
+        <% if @scanning.complete? %>
           <div class="float-right">
-            <%= link_to cells_from_scanning_path(@scanning), class: "btn btn-outline-primary" do %>
+            <%= link_to cells_from_scanning_path(@scanning), class: "btn btn-outline-primary float-right" do %>
               Núcleos <span class="fa fa-border-all"></span>
             <% end %>
           </div>
