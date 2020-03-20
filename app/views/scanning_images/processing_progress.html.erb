@@ -102,8 +102,12 @@
   }
 
   var virtual_table = {};
+  var interval = null;
 
   $(document).on('turbolinks:load', () => {
-    setInterval(reload_processing_table, 500);
+    interval = setInterval(reload_processing_table, 500);
+    if ($('#processing-elements').length == 0){
+      clearInterval(interval)
+    }
   });
 </script>

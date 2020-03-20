@@ -51,8 +51,6 @@
   $('.cell').on('click', (event) => {
     console.log(event.target);
     let cell_id = $(event.target).attr('data_value');
-    console.log(cell_id);
-    console.log(`/scanned_cells/${cell_id}`);
     $.ajax({
       url: `/scanned_cells/${cell_id}`,
       success: (response) => {
