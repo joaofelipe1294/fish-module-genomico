@@ -1,5 +1,5 @@
 class ScanningsController < ApplicationController
-  before_action :set_scanning, only: [:show, :cells]
+  before_action :set_scanning, only: [:show]
 
   def index
   end
@@ -19,9 +19,6 @@ class ScanningsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def cells
   end
 
   private

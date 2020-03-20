@@ -7,6 +7,7 @@ class ScanningImage < ApplicationRecord
   has_many :scanned_cells
   accepts_nested_attributes_for :scanned_cells, allow_destroy: true
   before_validation :set_process_status
+  after_update :check_if_all_imgaes_are_complete
   enum process_status: {
     waiting_start: 1,
     marking_image: 2,
@@ -22,6 +23,11 @@ class ScanningImage < ApplicationRecord
 
     def extract_nucleus_job
       ExtractNucleusJob.perform_later(self)
+    end
+
+    def check_if_all_imgaes_are_complete
+      scanning = self.scanning
+      scanning.update(process_status: :complete) unless scanning.scanning_images.size > scanning.scanning_images.complete.size
     end
 
 end

@@ -8,14 +8,12 @@ class Scanning < ApplicationRecord
   before_validation :set_initial_status
   enum process_status: {
     waiting_start: 1,
-    processing_image: 2,
-    image_marked: 5,
-    processing_nucleuses: 3,
-    processed: 4
+    processing: 2,
+    complete: 3
   }
 
   def valid_nucleus
-    return "<span class='text-info'>Processando</span> <span class='text-info fa fa-spinner'></span>".html_safe unless self.processed?
+    return "<span class='text-info'>Processando</span> <span class='text-info fa fa-spinner'></span>".html_safe unless self.complete?
     total = 0
     self.scanning_images.each { |image| total += image.valid_nucleus_found }
     "Núcleos válidos: #{total}"

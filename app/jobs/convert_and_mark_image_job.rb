@@ -3,8 +3,7 @@ class ConvertAndMarkImageJob < ApplicationJob
 
   def perform(params)
     scanning = params[:scanning]
-    scanning.update process_status: :processing_image
+    scanning.update process_status: :processing
     ImageMarkerService.new(params).call
-    scanning.update process_status: :image_marked
   end
 end
