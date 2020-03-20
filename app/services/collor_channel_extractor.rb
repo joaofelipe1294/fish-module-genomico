@@ -14,18 +14,19 @@ class CollorChannelExtractor
     blue_green = File.open(@image_data["channels"]["blue-green"])
     blue_red = File.open(@image_data["channels"]["blue-red"])
     green_red = File.open(@image_data["channels"]["green-red"])
-    @scanned_cell.images.attach(io: blue, filename: 'blue_nucleus.png', content_type: 'image/png')
-    @scanned_cell.images.attach(io: green, filename: 'green_nucleus.png', content_type: 'image/png')
-    @scanned_cell.images.attach(io: red, filename: 'red_nucleus.png', content_type: 'image/png')
-    @scanned_cell.images.attach(io: blue_green, filename: 'blue_green_nucleus.png', content_type: 'image/png')
-    @scanned_cell.images.attach(io: blue_red, filename: 'blue_red_nucleus.png', content_type: 'image/png')
-    @scanned_cell.images.attach(io: green_red, filename: 'green_red_nucleus.png', content_type: 'image/png')
+    @scanned_cell.blue.attach(io: blue, filename: 'blue_nucleus.png', content_type: 'image/png')
+    @scanned_cell.green.attach(io: green, filename: 'green_nucleus.png', content_type: 'image/png')
+    @scanned_cell.red.attach(io: red, filename: 'red_nucleus.png', content_type: 'image/png')
+    @scanned_cell.blue_green.attach(io: blue_green, filename: 'blue_green_nucleus.png', content_type: 'image/png')
+    @scanned_cell.blue_red.attach(io: blue_red, filename: 'blue_red_nucleus.png', content_type: 'image/png')
+    @scanned_cell.green_red.attach(io: green_red, filename: 'green_red_nucleus.png', content_type: 'image/png')
     blue.close
     green.close
     red.close
     blue_green.close
     blue_red.close
     green_red.close
+    @scanned_cell
   end
 
   private

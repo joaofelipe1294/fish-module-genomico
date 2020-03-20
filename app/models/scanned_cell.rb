@@ -3,6 +3,12 @@ class ScannedCell < ApplicationRecord
   before_validation :set_label
   before_validation :set_process_status
   has_one_attached :rgb
+  has_one_attached :blue
+  has_one_attached :red
+  has_one_attached :green
+  has_one_attached :blue_green
+  has_one_attached :blue_red
+  has_one_attached :green_red
   paginates_per 45
   enum label: {
     positive: 1,
@@ -14,33 +20,30 @@ class ScannedCell < ApplicationRecord
     complete: 3
   }
 
-  # def rgb
-  #   find_image "nucleus"
-  # end
-  #
-  # def blue
-  #   find_image "blue_nucleus"
-  # end
-  #
-  # def green
-  #   find_image "green_nucleus"
-  # end
-  #
-  # def red
-  #   find_image "red_nucleus"
-  # end
-  #
-  # def green_red
-  #   find_image "green_red_nucleus"
-  # end
-  #
-  # def blue_green
-  #   find_image "blue_green_nucleus"
-  # end
-  #
-  # def blue_red
-  #   find_image "blue_red_nucleus"
-  # end
+  def blue_path
+    ActiveStorage::Blob.service.send(:path_for, self.blue.key)
+  end
+
+  def green_path
+    ActiveStorage::Blob.service.send(:path_for, self.green.key)
+  end
+
+  def red_path
+    ActiveStorage::Blob.service.send(:path_for, self.red.key)
+  end
+
+  def blue_green_path
+    ActiveStorage::Blob.service.send(:path_for, self.blue_green.key)
+  end
+
+
+  def blue_red_path
+    ActiveStorage::Blob.service.send(:path_for, self.blue_red.key)
+  end
+
+  def green_red_path
+    ActiveStorage::Blob.service.send(:path_for, self.green_red.key)
+  end
 
   private
 
