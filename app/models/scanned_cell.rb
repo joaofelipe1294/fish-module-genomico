@@ -1,10 +1,8 @@
 class ScannedCell < ApplicationRecord
   belongs_to :scanning_image
   before_validation :set_label
-  # after_create_commit :extract_color_channels_job
-  has_many_attached :images
   before_validation :set_process_status
-  # after_update :check_if_all_nucleus_are_processed
+  has_one_attached :rgb
   enum label: {
     positive: 1,
     negative: 0
@@ -15,33 +13,33 @@ class ScannedCell < ApplicationRecord
     complete: 3
   }
 
-  def rgb
-    find_image "nucleus"
-  end
-
-  def blue
-    find_image "blue_nucleus"
-  end
-
-  def green
-    find_image "green_nucleus"
-  end
-
-  def red
-    find_image "red_nucleus"
-  end
-
-  def green_red
-    find_image "green_red_nucleus"
-  end
-
-  def blue_green
-    find_image "blue_green_nucleus"
-  end
-
-  def blue_red
-    find_image "blue_red_nucleus"
-  end
+  # def rgb
+  #   find_image "nucleus"
+  # end
+  #
+  # def blue
+  #   find_image "blue_nucleus"
+  # end
+  #
+  # def green
+  #   find_image "green_nucleus"
+  # end
+  #
+  # def red
+  #   find_image "red_nucleus"
+  # end
+  #
+  # def green_red
+  #   find_image "green_red_nucleus"
+  # end
+  #
+  # def blue_green
+  #   find_image "blue_green_nucleus"
+  # end
+  #
+  # def blue_red
+  #   find_image "blue_red_nucleus"
+  # end
 
   private
 

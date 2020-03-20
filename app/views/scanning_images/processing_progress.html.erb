@@ -76,7 +76,6 @@
       } else {
         let virtual_image = virtual_table[line.id.toString()];
         if (virtual_image.current_status !== line.status) {
-          console.log(line.status);
           if (line.status === "extracting_nucleus"){
             let previous = virtual_image.dom.children('.marking_image')
             previous.text("")
