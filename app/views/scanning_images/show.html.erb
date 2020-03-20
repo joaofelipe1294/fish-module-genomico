@@ -48,25 +48,30 @@
     }
   }
 
-  // $('.cell').click(event => {
-  //   reset_buttons();
-  //   let cell_image = $(event.target);
-  //   let cell_channels = JSON.parse(cell_image.attr('data_value'));
-  //   $("#channel-paths").text((JSON.stringify(cell_channels)));
-  //   $("#single-nucleus").attr('src', cell_channels.rgb);
-  //   let image_card = $("#single-nucleus-card");
-  //   image_card.css("position", "absolute");
-  //   image_card.css("z-index", "3");
-  //   image_card.css("margin-top", "8%");
-  //   image_card.css("top", $(window).scrollTop());
-  //   image_card.fadeToggle();
-  //   $("#shade").css('bottom', -1 * $(document).height())
-  //   $('#shade').toggle();
-  // })
-
   $('.cell').on('click', (event) => {
     console.log(event.target);
-    
+    let cell_id = $(event.target).attr('data_value');
+    console.log(cell_id);
+    console.log(`/scanned_cells/${cell_id}`);
+    $.ajax({
+      url: `/scanned_cells/${cell_id}`,
+      success: (response) => {
+        reset_buttons();
+        $("#channel-paths").text((JSON.stringify(response)));
+        $("#single-nucleus").attr('src', response.rgb);
+        let image_card = $("#single-nucleus-card");
+        image_card.css("position", "absolute");
+        image_card.css("z-index", "3");
+        image_card.css("margin-top", "8%");
+        image_card.css("top", $(window).scrollTop());
+        image_card.fadeToggle();
+        $("#shade").css('bottom', -1 * $(document).height())
+        $('#shade').toggle();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   })
 
   $("#shade").click(() => {
