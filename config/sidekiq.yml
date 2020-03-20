@@ -9,3 +9,4 @@ production:
   - mark_image
   - extract_nucleus
   - extract_channels
+  - clean_channel_images

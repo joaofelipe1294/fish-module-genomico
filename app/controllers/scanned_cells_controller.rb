@@ -3,6 +3,7 @@ class ScannedCellsController < ApplicationController
   def show
     cell = ScannedCell.find params[:id]
     cell = CollorChannelExtractor.new(cell).call
+    RemoveColorChannelsImagesJob.set(wait: 30.seconds).perform_later(cell)
     data = {
       blue: cell.blue_path,
       green: cell.green_path,
