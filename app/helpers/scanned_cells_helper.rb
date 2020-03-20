@@ -1,0 +1,2 @@
+module ScannedCellsHelper
+end
