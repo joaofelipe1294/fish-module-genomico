@@ -16,21 +16,13 @@
 </div>
 
 
-<div class="mt-5 p-5" style="background-color: rgba(0, 0, 0, .65)">
-  <% @scanned_image.scanned_cells.each do |cell| %>
+<div class="p-5" style="background-color: rgba(0, 0, 0, .65)">
+  <% @scanned_cells.each do |cell| %>
     <div class="card d-inline-block" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px;">
-      <%= image_tag cell.rgb, class: "cell", style: {width: 125, height: 125}, data_value: {
-        "red": url_for(cell.red),
-        "green": url_for(cell.green),
-        "blue": url_for(cell.blue),
-        "rgb": url_for(cell.rgb),
-        "blue_green": url_for(cell.blue_green),
-        "blue_red": url_for(cell.blue_red),
-        "green_red": url_for(cell.green_red),
-        "id": cell.id
-      }.to_json %>
+      <%= image_tag cell.rgb, class: "cell", style: {width: 125, height: 125}, data_value: cell.id %>
     </div>
   <% end %>
+  <%= render 'layouts/table_footer', elements: @scanned_cells %>
 </div>
 
 <script>
@@ -56,20 +48,28 @@
     }
   }
 
-  $('.cell').click(event => {
-    reset_buttons();
-    let cell_image = $(event.target);
-    let cell_channels = JSON.parse(cell_image.attr('data_value'));
-    $("#channel-paths").text((JSON.stringify(cell_channels)));
-    $("#single-nucleus").attr('src', cell_channels.rgb);
-    let image_card = $("#single-nucleus-card");
-    image_card.css("position", "absolute");
-    image_card.css("z-index", "3");
-    image_card.css("margin-top", "8%");
-    image_card.css("top", $(window).scrollTop());
-    image_card.fadeToggle();
-    $("#shade").css('bottom', -1 * $(document).height())
-    $('#shade').toggle();
+  $('.cell').on('click', (event) => {
+    console.log(event.target);
+    let cell_id = $(event.target).attr('data_value');
+    $.ajax({
+      url: `/scanned_cells/${cell_id}`,
+      success: (response) => {
+        reset_buttons();
+        $("#channel-paths").text((JSON.stringify(response)));
+        $("#single-nucleus").attr('src', response.rgb);
+        let image_card = $("#single-nucleus-card");
+        image_card.css("position", "absolute");
+        image_card.css("z-index", "3");
+        image_card.css("margin-top", "8%");
+        image_card.css("top", $(window).scrollTop());
+        image_card.fadeToggle();
+        $("#shade").css('bottom', -1 * $(document).height())
+        $('#shade').toggle();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   })
 
   $("#shade").click(() => {

@@ -11,8 +11,7 @@ class ScanningImage < ApplicationRecord
     waiting_start: 1,
     marking_image: 2,
     extracting_nucleus: 3,
-    processing_nucleus: 4,
-    complete: 5
+    complete: 4
   }
 
   private

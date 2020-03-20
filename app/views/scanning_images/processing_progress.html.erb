@@ -12,7 +12,6 @@
       <th>Iniciado em</th>
       <th class="col-2">Detectando núcleos</th>
       <th class="col-2">Extraindo núcleos</th>
-      <th class="col-2">Processando núcleos</th>
     </thead>
     <tbody id="pending-images">
     </tbody>
@@ -39,14 +38,6 @@
     }
   }
 
-  function processing_nucleus(status){
-    if (status === "processing_nucleus"){
-      return "Processando";
-    }else{
-      return "";
-    }
-  }
-
   function line_builder(processing_image){
     $("#pending-images").append(`
       <tr id="${processing_image.id}-image" class="processing-image">
@@ -54,7 +45,6 @@
         <td>${processing_image.start_processing_at}</td>
         <td class="marking_image">${marking_image(processing_image.status)}</td>
         <td class="extracting_nucleus">${extracting_nucleus(processing_image.status)}</td>
-        <td class="processing_nucleus">${processing_nucleus(processing_image.status)}</td>
       </tr>
       `).hide().fadeIn(800)
     return $(`#${processing_image.id}-image`)
@@ -91,14 +81,9 @@
             previous.text("")
             previous.append(`<span class="text-primary">Concluído</span>`)
             let cell = virtual_image.dom.children('.extracting_nucleus')
-          } else if (line.status === 'processing_nucleus') {
-            let previous_cell = virtual_image.dom.children('.extracting_nucleus').first();
-            previous_cell.text("");
-            previous_cell.append("<span class='text-info'>Concluído</span>");
-            let cell = virtual_image.dom.children('.processing_nucleus');
             cell.text("Processando");
+            virtual_table[line.id.toString()].current_status = line.status;
           }
-          virtual_table[line.id.toString()].current_status = line.status;
         }
       }
     })
@@ -108,12 +93,7 @@
     $.ajax({
       url: '/scanning-images/processing',
       success: (response) => {
-        if (response.length === 0)
-          $("#processing-elements").hide()
-        else{
-          $("#processing-elements").show()
-          check_lines(response);
-        }
+        check_lines(response);
       },
       error: (error) => {
         console.log("Erro ao obter dados do servidor.");
@@ -122,8 +102,12 @@
   }
 
   var virtual_table = {};
+  var interval = null;
 
   $(document).on('turbolinks:load', () => {
-    setInterval(reload_processing_table, 500);
+    interval = setInterval(reload_processing_table, 500);
+    if ($('#processing-elements').length == 0){
+      clearInterval(interval)
+    }
   });
 </script>

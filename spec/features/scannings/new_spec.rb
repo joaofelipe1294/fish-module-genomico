@@ -20,12 +20,6 @@ RSpec.feature "Scannings::News", type: :feature do
         it 'is expected to be redirected to new scanning view' do
           expect(page).to have_current_path(new_scanning_path, ignore_query: true)
         end
-        context "when missing values is expected to render error message" do
-          before(:each) { click_button id: 'btn-save' }
-          it 'is expected to render error messages' do
-            expect(page).to have_selector '.error'
-          end
-        end
         context "when fill ok" do
           before :each do
             visit new_scanning_path(slice_id: FishSlice.last.id)

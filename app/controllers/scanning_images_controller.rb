@@ -1,7 +1,7 @@
 class ScanningImagesController < ApplicationController
 
   def show
-    @scanned_image = ScanningImage.includes(:scanned_cells).with_attached_png_image.find params[:id]
+    @scanned_cells = ScannedCell.where(scanning_image_id: params[:id]).order(:id).page params[:page]
   end
 
   def processing
