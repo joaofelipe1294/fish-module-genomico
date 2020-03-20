@@ -1,10 +1,10 @@
 class ScannedCell < ApplicationRecord
   belongs_to :scanning_image
   before_validation :set_label
-  after_create_commit :extract_color_channels_job
+  # after_create_commit :extract_color_channels_job
   has_many_attached :images
   before_validation :set_process_status
-  after_update :check_if_all_nucleus_are_processed
+  # after_update :check_if_all_nucleus_are_processed
   enum label: {
     positive: 1,
     negative: 0
@@ -61,15 +61,15 @@ class ScannedCell < ApplicationRecord
       channel_image
     end
 
-    def extract_color_channels_job
-      NucleusChannelExtractionJob.perform_later(self)
-    end
+    # def extract_color_channels_job
+    #   NucleusChannelExtractionJob.perform_later(self)
+    # end
 
-    def check_if_all_nucleus_are_processed
-      scanning_image = self.scanning_image
-      if scanning_image.scanned_cells.complete.size > scanning_image.scanned_cells.size * 0.75
-        scanning_image.update(process_status: :complete, finish_processing_at: DateTime.current)
-      end
-    end
+    # def check_if_all_nucleus_are_processed
+    #   scanning_image = self.scanning_image
+    #   if scanning_image.scanned_cells.complete.size > scanning_image.scanned_cells.size * 0.75
+    #     scanning_image.update(process_status: :complete, finish_processing_at: DateTime.current)
+    #   end
+    # end
 
 end
