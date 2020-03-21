@@ -18,8 +18,8 @@ class CollorChannelExtractor
     @scanned_cell.green_red.attach(io: @green_red, filename: 'green_red_nucleus.png', content_type: 'image/png')
     close_files
     purge_files
+    RemoveColorChannelsImagesJob.set(wait: 5.minutes).perform_later(@scanned_cell)
     @scanned_cell
-    RemoveColorChannelsImagesJob.set(wait: 5.minutes).perform_later(cell)
   end
 
   private
