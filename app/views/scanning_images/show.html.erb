@@ -1,11 +1,15 @@
 <%= render 'layouts/navbar' %>
 
-<div id="single-nucleus-card" class="card col-4 p-0 offset-4" style="display: none;">
+<div id="single-nucleus-card" class="card col-6 p-0 offset-3" style="display: none;">
   <div class="card-header">
     <span id="channel-paths" hidden></span>
+    <span id="nucleus-label" hidden></span>
+    <span id="nucleus-id" hidden></span>
     <button id="blue-channel" class="btn btn-primary with-blue">Azul</button>
     <button id="green-channel" class="btn btn-success with-green">Verde</button>
     <button id="red-channel" class="btn btn-danger with-red">Vermelho</button>
+    <button id="mark-as-positive" class="btn btn-outline-success ml-5">Marcar como positivo</button>
+    <button id="mark-as-negative" class="btn btn-outline-danger ml-5">Marcar como negativo</button>
     <button id="treated" class="btn btn-outline-dark float-right">Tratar</button>
     <button id="original" class="btn btn-outline-info float-right" hidden>Original</button>
   </div>
@@ -20,8 +24,8 @@
 
 <div class="p-5" style="background-color: rgba(0, 0, 0, .65)">
   <% @scanned_cells.each do |cell| %>
-    <div class="card d-inline-block" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px;">
-      <%= image_tag cell.rgb, class: "cell", style: {width: 125, height: 125}, data_value: cell.id %>
+    <div id="cell-<%= cell.id %>" class="card d-inline-block  border <%= cell.positive? ? "border-success" : "border-danger"%>" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px;">
+      <%= image_tag cell.rgb, class: "cell", style: {width: 125, height: 125}, data_value: cell.id, data_label: cell.label %>
     </div>
   <% end %>
   <%= render 'layouts/table_footer', elements: @scanned_cells %>
@@ -86,7 +90,16 @@
   })
 
   $('.cell').on('click', (event) => {
+    let label = $(event.target).attr('data_label');
+    $('#nucleus-label').text(label)
+    $('#mark-as-positive').hide()
+    $('#mark-as-negative').hide()
+    if (label === 'positive')
+      $('#mark-as-negative').show()
+    else
+      $('#mark-as-positive').show()
     let cell_id = $(event.target).attr('data_value');
+    $('#nucleus-id').text(cell_id)
     render_rgb_nucleus(cell_id);
   });
 
@@ -112,8 +125,6 @@
   $('#original').on('click', (event) => {
     let cell_id = $(event.target).attr('data-value');
     render_rgb_nucleus(cell_id);
-    // $('#original').attr('hidden', 'hidden');
-    // $('#treated').removeAttr('hidden');
   })
 
 </script>
@@ -193,5 +204,41 @@
     }
     reload_image();
   });
+
+  $('#mark-as-negative').on('click', (event) => {
+    let cell_id = $('#nucleus-id').text();
+    $.ajax({
+      url: `/scanned_cells/${cell_id}/change_label?label=negative`,
+      method: 'patch',
+      success: (response) => {
+        $('#mark-as-negative').fadeToggle();
+        $('#mark-as-positive').fadeToggle();
+        $(`#cell-${cell_id}`).removeClass('border-success');
+        $(`#cell-${cell_id}`).addClass('border-danger');
+        $(`#cell-${cell_id}`).children().first().attr('data_label', 'negative')
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  })
+
+  $('#mark-as-positive').on('click', (event) => {
+    let cell_id = $('#nucleus-id').text();
+    $.ajax({
+      url: `/scanned_cells/${cell_id}/change_label?label=positive`,
+      method: 'patch',
+      success: (response) => {
+        $('#mark-as-negative').fadeToggle();
+        $('#mark-as-positive').fadeToggle();
+        $(`#cell-${cell_id}`).removeClass('border-danger');
+        $(`#cell-${cell_id}`).addClass('border-success');
+        $(`#cell-${cell_id}`).children().first().attr('data_label', 'positive')
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  })
 
 </script>
