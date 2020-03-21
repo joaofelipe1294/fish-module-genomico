@@ -23,17 +23,13 @@ Vagrant.configure("2") do |config|
     inline: "sudo pip --proxy http://proxy.cdapp.net.br:3128 install psycopg2"
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 4096
-    v.cpus = 4
+    v.memory = 2048
+    v.cpus = 2
   end
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "./vagrant_files/playbook.yml"
     ansible.compatibility_mode="2.0"
   end
-  #
-  # config.vm.provision "shell", path: "vagrant_files/shell_scripts/install_redis.sh"
-  #
-  # config.vm.provision "shell", path: "vagrant_files/shell_scripts/chrome_install.sh"
 
 end

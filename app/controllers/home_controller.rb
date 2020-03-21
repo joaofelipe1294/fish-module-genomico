@@ -1,7 +1,11 @@
 class HomeController < ApplicationController
 
   def index
-    response = RestClient.get('cda0015.cdapp.net.br:3000/fish-api/exams')
+    begin
+      response = RestClient.get('cda0015.cdapp.net.br:3000/fish-api/exams')
+    rescue
+      response = {}.to_json
+    end
     @exams = JSON.parse(response).map do |exam|
       GenomicoExamPresenter.new({
         exam: exam["exam"],
