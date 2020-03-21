@@ -19,6 +19,7 @@ class CollorChannelExtractor
     close_files
     purge_files
     @scanned_cell
+    RemoveColorChannelsImagesJob.set(wait: 5.minutes).perform_later(cell)
   end
 
   private
