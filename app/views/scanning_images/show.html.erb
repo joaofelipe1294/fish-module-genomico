@@ -7,6 +7,7 @@
     <button id="green-channel" class="btn btn-success with-green">Verde</button>
     <button id="red-channel" class="btn btn-danger with-red">Vermelho</button>
     <button id="treated" class="btn btn-outline-dark float-right">Tratar</button>
+    <button id="original" class="btn btn-outline-info float-right" hidden>Original</button>
   </div>
   <div class="card-body">
     <img id="single-nucleus" src="" class="col-12">
@@ -61,13 +62,7 @@
     $('#shade').show();
   }
 
-  $("#shade").click(() => {
-    $("#shade").toggle();
-    $("#single-nucleus-card").fadeToggle();
-  })
-
-  $('.cell').on('click', (event) => {
-    let cell_id = $(event.target).attr('data_value');
+  function render_rgb_nucleus(cell_id){
     $.ajax({
       url: `/scanned_cells/${cell_id}`,
       success: (response) => {
@@ -75,12 +70,24 @@
         $("#channel-paths").text((JSON.stringify(response)));
         $("#single-nucleus").attr('src', response.rgb);
         $("#treated").attr('data-value', cell_id);
+        $('#original').attr('hidden', 'hidden');
+        $('#treated').removeAttr('hidden');
         render_image_card();
       },
       error: (error) => {
         console.log(error);
       }
     })
+  }
+
+  $("#shade").click(() => {
+    $("#shade").toggle();
+    $("#single-nucleus-card").fadeToggle();
+  })
+
+  $('.cell').on('click', (event) => {
+    let cell_id = $(event.target).attr('data_value');
+    render_rgb_nucleus(cell_id);
   });
 
   $('#treated').on('click', (event) => {
@@ -91,12 +98,22 @@
         $("#channel-paths").text('')
         $("#channel-paths").text((JSON.stringify(response)));
         $("#single-nucleus").attr('src', response.treated);
+        $('#original').attr('data-value', cell_id);
+        $('#original').removeAttr('hidden');
+        $('#treated').attr('hidden', 'hidden');
         render_image_card();
       },
       error: (error) => {
         console.log(error);
       }
     })
+  });
+
+  $('#original').on('click', (event) => {
+    let cell_id = $(event.target).attr('data-value');
+    render_rgb_nucleus(cell_id);
+    // $('#original').attr('hidden', 'hidden');
+    // $('#treated').removeAttr('hidden');
   })
 
 </script>
