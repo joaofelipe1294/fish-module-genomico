@@ -56,18 +56,25 @@
     image_card.css("z-index", "3");
     image_card.css("margin-top", "8%");
     image_card.css("top", $(window).scrollTop());
-    image_card.fadeToggle();
+    image_card.fadeIn(800);
     $("#shade").css('bottom', -1 * $(document).height())
-    $('#shade').toggle();
+    $('#shade').show();
   }
+
+  $("#shade").click(() => {
+    $("#shade").toggle();
+    $("#single-nucleus-card").fadeToggle();
+  })
 
   $('.cell').on('click', (event) => {
     let cell_id = $(event.target).attr('data_value');
     $.ajax({
       url: `/scanned_cells/${cell_id}`,
       success: (response) => {
+        $("#channel-paths").text('')
         $("#channel-paths").text((JSON.stringify(response)));
         $("#single-nucleus").attr('src', response.rgb);
+        $("#treated").attr('data-value', cell_id);
         render_image_card();
       },
       error: (error) => {
@@ -76,18 +83,14 @@
     })
   });
 
-  $("#shade").click(() => {
-    $("#shade").toggle();
-    $("#single-nucleus-card").fadeToggle();
-  })
-
   $('#treated').on('click', (event) => {
-    let cell_id = $(event.target).attr('data_value');
+    let cell_id = $(event.target).attr('data-value');
     $.ajax({
-      url: `/scanned_cells/${cell_id}`,
+      url: `/scanned_cells/treat/${cell_id}`,
       success: (response) => {
+        $("#channel-paths").text('')
         $("#channel-paths").text((JSON.stringify(response)));
-        $("#single-nucleus").attr('src', response.rgb);
+        $("#single-nucleus").attr('src', response.treated);
         render_image_card();
       },
       error: (error) => {
@@ -112,7 +115,10 @@
     let channels = find_channels();
     let nucleus_image = $('#single-nucleus');
     if (channels["blue"] && channels["green"] && channels["red"]){
-      nucleus_image.attr('src', image_paths.rgb);
+      if (image_paths.rgb)
+        nucleus_image.attr('src', image_paths.rgb);
+      else
+        nucleus_image.attr('src', image_paths.treated);
     } else if (channels["blue"]){
       if (channels["red"])
         nucleus_image.attr('src', image_paths.blue_red);

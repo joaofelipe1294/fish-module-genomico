@@ -23,6 +23,7 @@ class RemoveNoiseService
     File.delete(@image_data["channels"]["treated"])
     purge_files
     CleanTreatedImageJob.set(wait: 5.minutes).perform_later
+    @cell
   end
 
   private
