@@ -20,7 +20,7 @@
 
 <div class="p-5" style="background-color: rgba(0, 0, 0, .65)">
   <% @scanned_cells.each do |cell| %>
-    <div class="card d-inline-block" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px;">
+    <div class="card d-inline-block  border <%= cell.positive? ? "border-success" : "border-danger"%>" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px;">
       <%= image_tag cell.rgb, class: "cell", style: {width: 125, height: 125}, data_value: cell.id %>
     </div>
   <% end %>
