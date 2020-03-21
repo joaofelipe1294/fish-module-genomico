@@ -23,7 +23,7 @@
         name: [autoconf,bison,build-essential,libssl1.0-dev,libyaml-dev,libreadline-dev,zlib1g-dev,libncurses5-dev,libffi-dev,libgdbm-dev,build-essential,tcl]
         state: latest
       become: yes
-      
+
     # - name: Instalando Ruby 2.5.5
     #   command: bash /vagrant/vagrant_files/shell_scripts/ruby_install.sh >> ruby_install_log.txt
     #

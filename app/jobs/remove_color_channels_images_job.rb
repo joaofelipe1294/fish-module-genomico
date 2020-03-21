@@ -1,12 +1,12 @@
 class RemoveColorChannelsImagesJob < ApplicationJob
-  queue_as :clean_channel_images
+  queue_as :clean
 
-  def perform(scanned_image)
-    scanned_image.blue.purge
-    scanned_image.green.purge
-    scanned_image.red.purge
-    scanned_image.blue_green.purge
-    scanned_image.blue_red.purge
-    scanned_image.green_red.purge
+  def perform(cell)
+    cell.blue.purge
+    cell.green.purge
+    cell.red.purge
+    cell.blue_green.purge
+    cell.blue_red.purge
+    cell.green_red.purge
   end
 end

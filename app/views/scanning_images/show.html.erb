@@ -6,6 +6,8 @@
     <button id="blue-channel" class="btn btn-primary with-blue">Azul</button>
     <button id="green-channel" class="btn btn-success with-green">Verde</button>
     <button id="red-channel" class="btn btn-danger with-red">Vermelho</button>
+    <button id="treated" class="btn btn-outline-dark float-right">Tratar</button>
+    <button id="original" class="btn btn-outline-info float-right" hidden>Original</button>
   </div>
   <div class="card-body">
     <img id="single-nucleus" src="" class="col-12">
@@ -48,33 +50,72 @@
     }
   }
 
-  $('.cell').on('click', (event) => {
-    let cell_id = $(event.target).attr('data_value');
+  function render_image_card(){
+    reset_buttons();
+    let image_card = $("#single-nucleus-card");
+    image_card.css("position", "absolute");
+    image_card.css("z-index", "3");
+    image_card.css("margin-top", "8%");
+    image_card.css("top", $(window).scrollTop());
+    image_card.fadeIn(800);
+    $("#shade").css('bottom', -1 * $(document).height())
+    $('#shade').show();
+  }
+
+  function render_rgb_nucleus(cell_id){
     $.ajax({
       url: `/scanned_cells/${cell_id}`,
       success: (response) => {
-        reset_buttons();
+        $("#channel-paths").text('')
         $("#channel-paths").text((JSON.stringify(response)));
         $("#single-nucleus").attr('src', response.rgb);
-        let image_card = $("#single-nucleus-card");
-        image_card.css("position", "absolute");
-        image_card.css("z-index", "3");
-        image_card.css("margin-top", "8%");
-        image_card.css("top", $(window).scrollTop());
-        image_card.fadeToggle();
-        $("#shade").css('bottom', -1 * $(document).height())
-        $('#shade').toggle();
+        $("#treated").attr('data-value', cell_id);
+        $('#original').attr('hidden', 'hidden');
+        $('#treated').removeAttr('hidden');
+        render_image_card();
       },
       error: (error) => {
         console.log(error);
       }
     })
-  })
+  }
 
   $("#shade").click(() => {
     $("#shade").toggle();
     $("#single-nucleus-card").fadeToggle();
   })
+
+  $('.cell').on('click', (event) => {
+    let cell_id = $(event.target).attr('data_value');
+    render_rgb_nucleus(cell_id);
+  });
+
+  $('#treated').on('click', (event) => {
+    let cell_id = $(event.target).attr('data-value');
+    $.ajax({
+      url: `/scanned_cells/treat/${cell_id}`,
+      success: (response) => {
+        $("#channel-paths").text('')
+        $("#channel-paths").text((JSON.stringify(response)));
+        $("#single-nucleus").attr('src', response.treated);
+        $('#original').attr('data-value', cell_id);
+        $('#original').removeAttr('hidden');
+        $('#treated').attr('hidden', 'hidden');
+        render_image_card();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  });
+
+  $('#original').on('click', (event) => {
+    let cell_id = $(event.target).attr('data-value');
+    render_rgb_nucleus(cell_id);
+    // $('#original').attr('hidden', 'hidden');
+    // $('#treated').removeAttr('hidden');
+  })
+
 </script>
 
 <script>
@@ -91,7 +132,10 @@
     let channels = find_channels();
     let nucleus_image = $('#single-nucleus');
     if (channels["blue"] && channels["green"] && channels["red"]){
-      nucleus_image.attr('src', image_paths.rgb);
+      if (image_paths.rgb)
+        nucleus_image.attr('src', image_paths.rgb);
+      else
+        nucleus_image.attr('src', image_paths.treated);
     } else if (channels["blue"]){
       if (channels["red"])
         nucleus_image.attr('src', image_paths.blue_red);

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :scannings
   resources :fish_slices
   resources :scanned_cells
+  get 'scanned_cells/treat/:id', to: 'scanned_cells#treat', as: :treat_scanned_cell
   get 'scanning-images/processing-progress', to: 'scanning_images#processing_progress', as: :processing_progress
   get 'scanning-images/complete', to: 'scanning_images#complete', as: :complete_scaning_images
   get 'fish-slice/:id/scannings', to: 'fish_slices#scannings', as: :scannings_from_fish_slice
