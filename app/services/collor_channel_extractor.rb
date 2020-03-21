@@ -1,6 +1,7 @@
 require 'json'
 
 class CollorChannelExtractor
+  include FileManager
 
   def initialize scanned_cell
     @scanned_cell = scanned_cell
@@ -26,33 +27,6 @@ class CollorChannelExtractor
       image_path = ActiveStorage::Blob.service.path_for(@scanned_cell.rgb.key)
       result = `python3 /home/vagrant/fish-core/channel_extractor.py #{image_path}`
       @image_data = JSON.parse result
-    end
-
-    def load_files
-      @blue = File.open(@image_data["channels"]["blue"])
-      @green = File.open(@image_data["channels"]["green"])
-      @red = File.open(@image_data["channels"]["red"])
-      @blue_green = File.open(@image_data["channels"]["blue-green"])
-      @blue_red = File.open(@image_data["channels"]["blue-red"])
-      @green_red = File.open(@image_data["channels"]["green-red"])
-    end
-
-    def close_files
-      @blue.close
-      @green.close
-      @red.close
-      @blue_green.close
-      @blue_red.close
-      @green_red.close
-    end
-
-    def purge_files
-      File.delete(@image_data["channels"]["blue"])
-      File.delete(@image_data["channels"]["green"])
-      File.delete(@image_data["channels"]["red"])
-      File.delete(@image_data["channels"]["blue-green"])
-      File.delete(@image_data["channels"]["blue-red"])
-      File.delete(@image_data["channels"]["green-red"])
     end
 
 end
