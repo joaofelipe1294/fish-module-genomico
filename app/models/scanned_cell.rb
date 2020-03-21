@@ -10,6 +10,7 @@ class ScannedCell < ApplicationRecord
   has_one_attached :blue_green
   has_one_attached :blue_red
   has_one_attached :green_red
+  has_one_attached :treated
   paginates_per 45
   enum label: {
     positive: 1,
@@ -47,6 +48,10 @@ class ScannedCell < ApplicationRecord
 
   def rgb_path
     get_attached_path self.rgb
+  end
+
+  def treated_path
+    get_attached_path self.treated
   end
 
   private
