@@ -16,6 +16,11 @@ class ScannedCellsController < ApplicationController
     render json: data, status: :ok
   end
 
+  def change_label
+    @scanned_cell.update label: params[:label]
+    render json: {}, status: :ok
+  end
+
   private
 
     def set_scanned_cell
