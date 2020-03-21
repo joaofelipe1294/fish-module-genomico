@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2020_03_21_220903) do
     t.integer "process_status"
     t.datetime "start_processing_at"
     t.datetime "finish_processing_at"
-    t.integer "analyzis_status"
+    t.integer "analysis_status"
     t.index ["scanning_id"], name: "index_scanning_images_on_scanning_id"
   end
 

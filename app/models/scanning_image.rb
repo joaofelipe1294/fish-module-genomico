@@ -14,6 +14,12 @@ class ScanningImage < ApplicationRecord
     extracting_nucleus: 3,
     complete: 4
   }
+  before_validation :set_analysis_status
+  enum analysis_status: {
+    pending: 0,
+    analyzed: 1
+  }
+
 
   private
 
@@ -28,6 +34,10 @@ class ScanningImage < ApplicationRecord
     def check_if_all_imgaes_are_complete
       scanning = self.scanning
       scanning.update(process_status: :complete) unless scanning.scanning_images.size > scanning.scanning_images.complete.size
+    end
+
+    def set_analysis_status
+      self.analysis_status = :pending unless self.analysis_status
     end
 
 end
