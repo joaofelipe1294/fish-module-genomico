@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :scannings
   resources :fish_slices
   resources :scanned_cells, only: [:show]
+  patch 'scanning_images/:id/analyzed', to: 'scanning_images#analyzed', as: :analyze_scanning_image
   patch 'scanned_cells/:id/change_label', to: 'scanned_cells#change_label', as: :change_cell_label
   get 'scanned_cells/treat/:id', to: 'scanned_cells#treat', as: :treat_scanned_cell
   get 'scanning-images/processing-progress', to: 'scanning_images#processing_progress', as: :processing_progress

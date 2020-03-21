@@ -21,3 +21,4 @@
         slice_id: Lâmina
   new_fish_slice_success: Lâmina cadastrada com sucesso.
   new_scanning_success: Digitalização cadastrada com sucesso.
+  scanning_image_analyzed: Imagem analizada com sucesso.

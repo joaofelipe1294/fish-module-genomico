@@ -17,10 +17,17 @@ class ScanningImagesController < ApplicationController
   end
 
   def pending_analysis
-    @scanning_images = ScanningImage.pending.order(created_at: :desc)
+    @scanning_images = ScanningImage.complete.pending.order(created_at: :desc)
   end
 
   def processing_progress
+  end
+
+  def analyzed
+    @scanning_image = ScanningImage.find params[:id]
+    @scanning_image.update analysis_status: :analyzed
+    flash[:success] = I18n.t :scanning_image_analyzed
+    redirect_to @scanning_image
   end
 
 end
