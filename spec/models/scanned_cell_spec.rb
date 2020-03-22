@@ -6,8 +6,10 @@ RSpec.describe ScannedCell, type: :model do
     before :each do
       fish_slice = create(:fish_slice, exam: build(:exam))
       scanning = build(:scanning)
-      scanning.images.attach(io: File.open("#{Rails.root}/spec/support_images/IMAGE001.tif"), filename: 'some_image.tif', content_type: 'image/tif')
+      file = File.open("#{Rails.root}/spec/support_images/SMALL_IMAGE.tif")
+      scanning.images.attach(io: file, filename: 'some_image.tif', content_type: 'image/tif')
       scanning.save
+      file.close
       scanning_image = scanning.reload.scanning_images.last
       @scanned_cell = build(:scanned_cell, scanning_image: scanning_image)
     end

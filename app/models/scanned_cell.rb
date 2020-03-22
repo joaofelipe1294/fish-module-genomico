@@ -2,7 +2,6 @@ class ScannedCell < ApplicationRecord
   include Rails.application.routes.url_helpers
   belongs_to :scanning_image
   before_validation :set_label
-  before_validation :set_process_status
   has_one_attached :rgb
   has_one_attached :blue
   has_one_attached :red
@@ -15,11 +14,6 @@ class ScannedCell < ApplicationRecord
   enum label: {
     positive: 1,
     negative: 0
-  }
-  enum process_status: {
-    waiting_start: 1,
-    processing: 2,
-    complete: 3
   }
 
   def blue_path
@@ -58,10 +52,6 @@ class ScannedCell < ApplicationRecord
 
     def set_label
       self.label = :positive unless self.label
-    end
-
-    def set_process_status
-      self.process_status = :waiting_start unless self.process_status
     end
 
     def get_attached_path attachment
