@@ -23,6 +23,17 @@
 
 
 <div class="p-5" style="background-color: rgba(0, 0, 0, .65)">
+  <% scanning_image = @scanned_cells.first.scanning_image %>
+  <% if scanning_image.pending? %>
+    <div class="pb-3">
+      <%= link_to "Analizada", change_status_to_analyzed_path(scanning_image), class: 'btn btn-lg btn-outline-primary offset-10', method: :patch %>
+    </div>
+  <% else %>
+    <h4 class="text-center pb-3 text-white">
+      Imagem já analizada
+    </h4>
+    <hr>
+  <% end %>
   <% @scanned_cells.each do |cell| %>
     <div id="cell-<%= cell.id %>" class="card d-inline-block  border <%= cell.positive? ? "border-success" : "border-danger"%>" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px;">
       <%= image_tag cell.rgb, class: "cell", style: {width: 125, height: 125}, data_value: cell.id, data_label: cell.label %>
