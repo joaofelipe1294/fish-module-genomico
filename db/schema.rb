@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_21_220903) do
+ActiveRecord::Schema.define(version: 2020_03_22_133211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 2020_03_21_220903) do
     t.integer "label"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "process_status"
     t.index ["scanning_image_id"], name: "index_scanned_cells_on_scanning_image_id"
   end
 
