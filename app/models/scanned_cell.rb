@@ -10,6 +10,7 @@ class ScannedCell < ApplicationRecord
   has_one_attached :blue_red
   has_one_attached :green_red
   has_one_attached :treated
+  validates_with CheckRgbValidator
   paginates_per 45
   enum label: {
     positive: 1,
@@ -57,5 +58,6 @@ class ScannedCell < ApplicationRecord
     def get_attached_path attachment
       rails_blob_path(attachment, disposition: "attachment", only_path: true)
     end
+
 
 end
