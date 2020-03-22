@@ -3,11 +3,10 @@ class ScanningImagesController < ApplicationController
   def index
     scanning_images = ScanningImage.complete
     if params[:status] == "pending"
-      scanning_images = scanning_images.pending
-    else
-      scanning_images = scanning_images.analyzed
+      @scanning_images = scanning_images.pending.order(created_at: :desc)
+    elsif params[:status] == "complete"
+      @scanning_images = scanning_images.analyzed.order(created_at: :desc)
     end
-    @scanning_images = scanning_images.order(created_at: :desc)
   end
 
   def show
@@ -24,9 +23,6 @@ class ScanningImagesController < ApplicationController
       }
     end
     render json: images
-  end
-
-  def processing_progress
   end
 
   def change_status_to_analyzed
