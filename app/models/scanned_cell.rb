@@ -68,22 +68,4 @@ class ScannedCell < ApplicationRecord
       rails_blob_path(attachment, disposition: "attachment", only_path: true)
     end
 
-
-    # def find_image channel
-    #   channel_image = nil
-    #   self.images.each do |image|
-    #     channel_image = image if image.filename.to_s == "#{channel}.png"
-    #   end
-    #   channel_image
-    # end
-    # def extract_color_channels_job
-    #   NucleusChannelExtractionJob.perform_later(self)
-    # end
-    # def check_if_all_nucleus_are_processed
-    #   scanning_image = self.scanning_image
-    #   if scanning_image.scanned_cells.complete.size > scanning_image.scanned_cells.size * 0.75
-    #     scanning_image.update(process_status: :complete, finish_processing_at: DateTime.current)
-    #   end
-    # end
-
 end
