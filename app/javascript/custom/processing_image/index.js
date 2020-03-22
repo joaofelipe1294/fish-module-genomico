@@ -32,8 +32,6 @@ function remove_complete_lines(updated_lines){
   let updated_ids = updated_lines.map(line => line.id );
   let keys = Object.keys(virtual_table);
   let displayed_elements = keys.map(key => virtual_table[key]);
-  if(keys.length === 0)
-    clearInterval(interval)
   displayed_elements.forEach(element => {
     if (updated_ids.includes(element.id) === false){
       element.dom.fadeOut(800);
@@ -86,5 +84,5 @@ var interval = null;
 
 $(document).on('turbolinks:load', () => {
   if ($('#processing-elements').length > 0)
-    interval = setInterval(reload_processing_table, 500);
+    interval = setInterval(reload_processing_table, 1000);
 });
