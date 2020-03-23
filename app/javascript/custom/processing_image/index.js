@@ -40,6 +40,8 @@ function remove_complete_lines(updated_lines){
 }
 
 function check_lines(updated_lines){
+  if($('#processing-elements').length == 0)
+    clearInterval(interval)
   remove_complete_lines(updated_lines);
   updated_lines.forEach(line => {
     let keys = Object.keys(virtual_table);
@@ -69,7 +71,8 @@ function check_lines(updated_lines){
 
 function reload_processing_table(){
   $.ajax({
-    url: '/scanning-images/processing',
+    url: '/scanning_images?status=processing',
+    dataType: 'json',
     success: (response) => {
       check_lines(response);
     },
@@ -85,4 +88,6 @@ var interval = null;
 $(document).on('turbolinks:load', () => {
   if ($('#processing-elements').length > 0)
     interval = setInterval(reload_processing_table, 1000);
+  else
+    clearInterval(interval)
 });
