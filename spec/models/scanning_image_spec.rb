@@ -15,6 +15,9 @@ RSpec.describe ScanningImage, type: :model do
       it 'scanning' do
         @scanning_image.scanning = nil
       end
+      it 'original' do
+        @scanning_image.original = nil
+      end
     end
     context "when without default values" do
       it 'is expected to be pending analysis status when creating' do
