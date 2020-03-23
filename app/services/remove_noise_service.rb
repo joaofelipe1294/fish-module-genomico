@@ -30,7 +30,7 @@ class RemoveNoiseService
 
     def extract_image_data
       image_path = ActiveStorage::Blob.service.path_for(@cell.rgb.key)
-      result = `python3 /home/vagrant/fish-core/treat_noise.py #{image_path}`
+      result = `python3 /opt/fish-core/treat_noise.py #{image_path}`
       @image_data = JSON.parse result
     end
 

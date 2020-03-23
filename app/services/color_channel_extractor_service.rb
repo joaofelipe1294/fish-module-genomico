@@ -27,7 +27,7 @@ class ColorChannelExtractorService
 
     def extract_image_data
       image_path = ActiveStorage::Blob.service.path_for(@scanned_cell.rgb.key)
-      result = `python3 /home/vagrant/fish-core/channel_extractor.py #{image_path}`
+      result = `python3 /opt/fish-core/channel_extractor.py #{image_path}`
       @image_data = JSON.parse result
     end
 

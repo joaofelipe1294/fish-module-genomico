@@ -18,7 +18,7 @@ class ImageMarkerService
 
     def set_image_data
       image_path = ActiveStorage::Blob.service.path_for(@image.key)
-      result = `python3 /home/vagrant/fish-core/convert_and_mark_image.py #{image_path}`
+      result = `python3 /opt/fish-core/convert_and_mark_image.py #{image_path}`
       @image_data = JSON.parse result
     end
 
