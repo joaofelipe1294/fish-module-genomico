@@ -13,33 +13,26 @@ RSpec.describe ScannedCell, type: :model do
   end
 
   describe "when creating a new scanned cell" do
-    context "with rgb attached image" do
-      before :each do
-        nucleus_image = File.open("#{Rails.root}/spec/support_images/NUCLEUS.png")
-        @scanned_cell.rgb.attach(io: nucleus_image, filename: 'nucleus.png', content_type: 'image/png')
-      end
-      it 'is expected to be_invalid when without scanned_image' do
-        @scanned_cell.scanning_image = nil
-        expect(@scanned_cell).to be_invalid
-      end
-      it 'is expected to be valid' do
-        expect(@scanned_cell.label).to eq :positive.to_s
-        expect(@scanned_cell).to be_valid
-      end
+    it 'is expected to be_invalid when without scanned_image' do
+      @scanned_cell.scanning_image = nil
+      expect(@scanned_cell).to be_invalid
+    end
+    it 'is expected to be valid' do
+      expect(@scanned_cell.label).to eq :positive.to_s
+      expect(@scanned_cell).to be_valid
     end
     it 'is expected to be_invalid when without rgb attachment' do
+      @scanned_cell.rgb = nil
       expect(@scanned_cell).to be_invalid
     end
   end
 
   describe "attachment _path method" do
     it "is expected to return image path when it has the attachment" do
-      nucleus_image = File.open("#{Rails.root}/spec/support_images/NUCLEUS.png")
-      @scanned_cell.rgb.attach(io: nucleus_image, filename: 'nucleus.png', content_type: 'image/png')
-      @scanned_cell.save
       expect(@scanned_cell.rgb_path).not_to be_empty
     end
     it 'is expected to return nil when without attached element' do
+      @scanned_cell.rgb = nil
       expect { @scanned_cell.rgb_path }.to raise_error(an_instance_of(Module::DelegationError))
     end
   end
