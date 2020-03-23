@@ -1,8 +1,12 @@
+
+sudo apt update
+sudo apt upgrade
 echo "Ruby dependencies ..."
-sudo apt install -y autoconf bison build-essential libssl1.0-dev \
+sudo apt install -f -y autoconf bison build-essential \
                     libyaml-dev libreadline-dev zlib1g-dev \
                     libncurses5-dev libffi-dev libgdbm-dev \
-                    build-essential tcl
+                    build-essential tcl git
+sudo apt-get install -y libssl1.0.0/bionic libssl-dev/bionic openssl/bionic
 echo "Ruby dependancies [OK]"
 echo "Postgres ..."
 sudo apt install -y postgresql  postgresql-contrib
@@ -26,7 +30,7 @@ if [ ! -d "redis" ]; then
   tar xzf redis-5.0.5.tar.gz
   cd redis-5.0.5
   make
-  make install
+  sudo make install
 fi
 echo "Redis [OK]"
 echo "Ruby ..."
@@ -39,10 +43,11 @@ fi
 /home/$USER/.rbenv/bin/rbenv install -s 2.6.3
 /home/$USER/.rbenv/bin/rbenv global 2.6.3
 echo "Ruby [OK]"
+echo "Rails 6.0.2 ..."
 /home/$USER/.rbenv/shims/gem install bundler -v 2.0.2
 /home/$USER/.rbenv/shims/gem install rails -v 6.0.2
 /home/$USER/.rbenv/bin/rbenv rehash
-
+echo "Rails 6.0.2 [OK]"
 echo "Now set redis to start at reboot"
 echo "@reboot /usr/local/bin/redis-server /home/vagrant/install/redis/redis-5.0.5/redis.conf"
 echo "Copy redis.conf configured right"
