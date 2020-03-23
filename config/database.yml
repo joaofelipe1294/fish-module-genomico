@@ -19,4 +19,4 @@ production:
   <<: *default
   database: fish_module_genomico_production
   username: postgres
-  password: 1234
+  password: monsterJuice
