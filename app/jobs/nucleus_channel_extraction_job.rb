@@ -3,7 +3,7 @@ class NucleusChannelExtractionJob < ApplicationJob
 
   def perform(scanned_cell)
     scanned_cell.update process_status: :processing
-    CollorChannelExtractor.new(scanned_cell).call
+    ColorChannelExtractorService.new(scanned_cell).call
     scanned_cell.update process_status: :complete
   end
 end

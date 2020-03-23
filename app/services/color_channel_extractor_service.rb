@@ -1,6 +1,7 @@
 require 'json'
+require './app/services/file_manager'
 
-class CollorChannelExtractor
+class ColorChannelExtractorService
   include FileManager
 
   def initialize scanned_cell
