@@ -38,7 +38,7 @@
               <button class="btn btn-sm btn-outline-dark expand" data-value="<%= image.id%>">
                 <span class="fa fa-plus icon"></span>
               </button>
-              <button class="btn btn-sm btn-outline-info full-screen" data-value="<%= url_for(image.marked_image) %>">
+              <button class="btn btn-sm btn-outline-info full-screen" data-value="<%= url_for(image.marked) %>">
                 <span class='fa fa-expand-alt'></span>
               </button>
               <%= link_to image, class: 'btn btn-sm btn-outline-primary' do %>
@@ -49,7 +49,7 @@
           <%= %>
         </div>
         <div id="image-<%= image.id%>" class="card-body image-card marked-image" style="display: none;">
-          <%= image_tag image.marked_image, class: 'col-12' %>
+          <%= image_tag image.marked, class: 'col-12' %>
         </div>
       </div>
     <% end %>

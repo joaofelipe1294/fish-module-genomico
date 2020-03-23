@@ -11,7 +11,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <%= link_to "Lâminas", fish_slices_path, class: 'nav-link fish-slices' %>
-      <%= link_to "Processando", processing_progress_path, class: 'nav-link processing-images' %>
+      <%= link_to "Processando", scanning_images_path(status: 'processing'), class: 'nav-link processing-images' %>
       <%= link_to "Imagens para análise", scanning_images_path(status: "pending"), class: 'nav-link scanning-images' %>
       <%= link_to "Imagens analizadas", scanning_images_path(status: 'analyzed'), class: 'nav-link' %>
     </ul>

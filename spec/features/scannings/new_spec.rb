@@ -27,8 +27,8 @@ RSpec.feature "Scannings::News", type: :feature do
             attach_file "scanning[images][]", "#{Rails.root}/spec/support_images/SMALL_IMAGE.tif"
             click_button id: 'btn-save'
           end
-          it 'is expected to be redirected to root_path' do
-            expect(page).to have_current_path processing_progress_path
+          it 'is expected to be redirected to processing_images_path' do
+            expect(page).to have_current_path scanning_images_path(status: 'processing')
           end
           it 'is expected to save values' do
             scanning = Scanning.last
