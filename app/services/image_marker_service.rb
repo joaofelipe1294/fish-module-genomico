@@ -11,6 +11,7 @@ class ImageMarkerService
     set_image_data
     @scanning_image = setup_scanning_image
     @scanning_image.save
+    @scanning_image
   end
 
   private
@@ -24,8 +25,8 @@ class ImageMarkerService
     def setup_scanning_image
       load_files
       scanning_image = ScanningImage.new(scanning: @scanning, start_processing_at: DateTime.current, process_status: :marking_image)
-      scanning_image.original.attach(io: original, filename: 'original-png.png', content_type: 'image/png')
-      scanning_image.marked.attach(io: marked, filename: 'marked.png', content_type: 'image/png')
+      scanning_image.original.attach(io: @original, filename: 'original-png.png', content_type: 'image/png')
+      scanning_image.marked.attach(io: @marked, filename: 'marked.png', content_type: 'image/png')
       scanning_image.save
       close_files
       scanning_image
