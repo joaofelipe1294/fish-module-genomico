@@ -6,6 +6,7 @@ class ScanningImage < ApplicationRecord
   has_many :scanned_cells
   before_validation :set_process_status
   after_update :check_if_all_imgaes_are_complete
+  validates_with CheckOriginalImageValidator
   enum process_status: {
     waiting_start: 1,
     marking_image: 2,
