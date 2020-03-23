@@ -24,7 +24,7 @@ class NucleusExtractorService
   private
 
     def extract_image_data
-      image_path = ActiveStorage::Blob.service.path_for(@scanning_image.png_image.key)
+      image_path = ActiveStorage::Blob.service.path_for(@scanning_image.original.key)
       result = `python3 /home/vagrant/fish-core/nucleus_extractor.py #{image_path}`
       @image_data = JSON.parse result
     end

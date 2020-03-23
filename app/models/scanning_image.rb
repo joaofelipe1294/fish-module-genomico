@@ -2,8 +2,7 @@ class ScanningImage < ApplicationRecord
   belongs_to :scanning
   after_create_commit :extract_nucleus_job
   has_one_attached :original
-  has_one_attached :png_image
-  has_one_attached :marked_image
+  has_one_attached :marked
   has_many :scanned_cells
   accepts_nested_attributes_for :scanned_cells, allow_destroy: true
   before_validation :set_process_status
