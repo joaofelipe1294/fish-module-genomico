@@ -13,8 +13,8 @@ class ScannedCell < ApplicationRecord
   validates_with CheckRgbValidator
   paginates_per 45
   enum label: {
-    positive: 1,
-    negative: 0
+    appropriate: 1,
+    inappropriate: 0
   }
 
   def blue_path
@@ -52,7 +52,7 @@ class ScannedCell < ApplicationRecord
   private
 
     def set_label
-      self.label = :positive unless self.label
+      self.label = :appropriate unless self.label
     end
 
     def get_attached_path attachment
