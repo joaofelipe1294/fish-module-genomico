@@ -2,7 +2,11 @@ class ScannedCellsController < ApplicationController
   before_action :set_scanned_cell
 
   def show
-    processed_cell = ColorChannelExtractorService.new(@scanned_cell).call
+    if  @scanned_cell.blue.attached? and @scanned_cell.green.attached? and @scanned_cell.red.attached?
+      processed_cell = @scanned_cell
+    else
+      processed_cell = ColorChannelExtractorService.new(@scanned_cell).call
+    end
     data = response_formatter(processed_cell)
     data[:rgb] = processed_cell.rgb_path
     render json: data, status: :ok
