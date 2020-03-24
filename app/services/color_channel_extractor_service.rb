@@ -17,6 +17,7 @@ class ColorChannelExtractorService
     @scanned_cell.blue_green.attach(io: @blue_green, filename: 'blue_green_nucleus.png', content_type: 'image/png')
     @scanned_cell.blue_red.attach(io: @blue_red, filename: 'blue_red_nucleus.png', content_type: 'image/png')
     @scanned_cell.green_red.attach(io: @green_red, filename: 'green_red_nucleus.png', content_type: 'image/png')
+    @scanned_cell.save
     close_files
     purge_files
     RemoveColorChannelsImagesJob.set(wait: 5.minutes).perform_later(@scanned_cell)
