@@ -14,6 +14,8 @@ require("@rails/activestorage").start()
 require("channels")
 require('custom/processing_image/index')
 require('custom/processing_image/change_label')
+require('custom/processing_image/render_nucleus_lib')
+require('custom/processing_image/render_nucleus')
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
