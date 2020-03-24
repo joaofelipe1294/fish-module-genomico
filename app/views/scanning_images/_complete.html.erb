@@ -18,7 +18,7 @@
   </thead>
   <tbody>
     <% @scanning_images.each do |image| %>
-      <tr>
+      <tr class="scanning-image">
         <td><%= image.id %></td>
         <td><%= image.scanning.fish_slice.exam.name %></td>
         <td><%= image.scanning.fish_slice.exam.patient %></td>
@@ -33,3 +33,4 @@
     <% end %>
   </tbody>
 </table>
+<%= render 'layouts/table_footer', elements: @scanning_images %>

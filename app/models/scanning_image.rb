@@ -7,6 +7,7 @@ class ScanningImage < ApplicationRecord
   before_validation :set_process_status
   after_update :check_if_all_imgaes_are_complete
   validates_with CheckOriginalImageValidator
+  paginates_per 15
   enum process_status: {
     waiting_start: 1,
     marking_image: 2,
@@ -18,7 +19,6 @@ class ScanningImage < ApplicationRecord
     pending: 0,
     analyzed: 1
   }
-
 
   private
 

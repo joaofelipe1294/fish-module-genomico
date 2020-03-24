@@ -3,9 +3,9 @@ class ScanningImagesController < ApplicationController
   def index
     scanning_images = ScanningImage.complete
     if params[:status] == "pending"
-      @scanning_images = scanning_images.pending.order(created_at: :desc)
+      @scanning_images = scanning_images.pending.order(created_at: :desc).page params[:page]
     elsif params[:status] == "analyzed"
-      @scanning_images = scanning_images.analyzed.order(created_at: :desc)
+      @scanning_images = scanning_images.analyzed.order(created_at: :desc).page params[:page]
     elsif params[:status] == "processing"
       respond_to do |format|
         format.html
