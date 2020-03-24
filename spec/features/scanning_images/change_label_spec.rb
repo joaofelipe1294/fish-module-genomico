@@ -16,7 +16,7 @@ RSpec.feature "ScanningImages::ChangeLabels", type: :feature do
     context "when cell has label positive", js: true do
       before(:each) { find(class: 'cell', match: :first).click }
       it 'is expected to have success border' do
-        expect(page).to have_selector '.border-success'
+        expect(page).to have_selector '.positive'
       end
       it 'is expected to render mark-as-negative button' do
         expect(page).to have_selector '#mark-as-negative'
@@ -24,7 +24,7 @@ RSpec.feature "ScanningImages::ChangeLabels", type: :feature do
       context "when click in mark-as-negative button" do
         before(:each) { click_button id: 'mark-as-negative' }
         it 'is expected to change border' do
-          expect(page).to have_selector '.border-danger'
+          expect(page).to have_selector '.negative'
         end
         it 'is expected to render mark-as-positive button' do
           expect(page).to have_selector '#mark-as-positive'
@@ -45,7 +45,7 @@ RSpec.feature "ScanningImages::ChangeLabels", type: :feature do
       expect(page).to have_selector '#mark-as-positive'
     end
     it 'is expected to have danger-border' do
-      expect(page).to have_selector '.border-danger'
+      expect(page).to have_selector '.negative'
     end
     context "when user click in mark-as-posiutive button" do
       before(:each) { click_button id: 'mark-as-positive' }
@@ -55,8 +55,8 @@ RSpec.feature "ScanningImages::ChangeLabels", type: :feature do
       it 'is expected to change label to positive' do
         expect(ScannedCell.positive.count).to eq 1
       end
-      it 'is expected to change border to border-success' do
-        expect(page).to have_selector '.border-success'
+      it 'is expected to change border to positive' do
+        expect(page).to have_selector '.positive'
       end
     end
   end
