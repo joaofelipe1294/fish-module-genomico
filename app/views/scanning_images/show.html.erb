@@ -26,10 +26,10 @@
   <% scanning_image = @scanned_cells.first.scanning_image %>
   <% if scanning_image.pending? %>
     <div class="pb-3">
-      <%= link_to "Analizada", scanning_image_path(scanning_image), class: 'btn btn-lg btn-outline-primary offset-10', method: :patch %>
+      <%= link_to "Analizada", scanning_image_path(scanning_image), class: 'btn btn-lg btn-outline-primary offset-10 analyze-image', method: :patch %>
     </div>
   <% else %>
-    <h4 class="text-center pb-3 text-white">
+    <h4 id='processing-image-status' class="text-center pb-3 text-white">
       Imagem já analizada
     </h4>
     <hr>
