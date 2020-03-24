@@ -36,6 +36,15 @@ RSpec.feature "ScanningImages::Shows", type: :feature do
         expect(page).to have_selector '#mark-as-negative'
         expect(page).not_to have_selector '#mark-as-positive'
       end
+      context "when click in shade" do
+        before(:each) { find(id: 'shade').trigger("click") }
+        it 'is expected to hide nucleus card' do
+          expect(page).not_to have_selector '#single-nucleus-card'
+        end
+        it 'is expected to hide shade' do
+          expect(page).not_to have_selector '#shade'
+        end
+      end
     end
   end
 
