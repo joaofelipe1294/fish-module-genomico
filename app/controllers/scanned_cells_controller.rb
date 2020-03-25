@@ -23,7 +23,7 @@ class ScannedCellsController < ApplicationController
     if @scanned_cell.update analysis_label: params[:label]
       render json: {}, status: :ok
     else
-      render json: @scanned_cell.errors.full_messages.first
+      render json: @scanned_cell.errors.full_messages.first, status: :bad_request
     end
   end
 

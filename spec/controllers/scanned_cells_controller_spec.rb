@@ -2,64 +2,41 @@ require 'rails_helper'
 
 RSpec.describe ScannedCellsController, type: :controller do
 
+  before :each do
+    create(:fish_slice)
+    create(:exam)
+    scanning = create(:scanning)
+    scanning_image = create(:scanning_image)
+    NucleusExtractorService.new(scanning_image).call
+    @scanned_cell = ScannedCell.last
+    request.env['HTTP_ACCEPT'] = 'application/json'
+  end
+
   describe "scanned_cells#update" do
     context "when changing a appropriate cell to inapropriate" do
-      it 'is expected to return ok'
-      it 'is expected to change cell label'
-      
+      before :each do
+        patch :update, params: { id: @scanned_cell.id,  label: 'inappropriate' }
+      end
+      it 'is expected to return ok' do
+        expect(response).to have_http_status :ok
+      end
+      it 'is expected to change cell label to appropriate' do
+        expect(@scanned_cell.reload.analysis_label).to match :inappropriate.to_s
+      end
+    end
+    context "when changing cell to inapropriate" do
+      before :each do
+        @scanned_cell.update analysis_label: :inappropriate
+        patch :update, params: {id: @scanned_cell.id, label: 'appropriate' }
+      end
+      it 'is expected to return ok' do
+        expect(response).to have_http_status :ok
+      end
+      it 'is expected to changed cell label to inappropriate' do
+        expect(@scanned_cell.reload.analysis_label).to match :appropriate.to_s
+      end
     end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # context "when there are images processing" do
-    #   before :each do
-    #     create(:fish_slice)
-    #     create(:scanning)
-    #     5.times { create(:scanning_image, start_processing_at: DateTime.current) }
-    #     ScanningImage.last.update process_status: :complete
-    #   end
-    #   it 'is expected to return ok status' do
-    #     request.env['HTTP_ACCEPT'] = 'application/json'
-    #     get :index, params: {status: 'processing'}
-    #     expect(response).to have_http_status :ok
-    #   end
-    #   it 'is expected to return scanning images list' do
-    #     request.env['HTTP_ACCEPT'] = 'application/json'
-    #     get :index, params: {status: 'processing'}
-    #     expect(JSON.parse(response.body).size).to eq 4
-    #   end
-    # end
-    # context "when there is no processing images" do
-    #   it 'is expected to return an empty array' do
-    #     request.env['HTTP_ACCEPT'] = 'application/json'
-    #     get :index, params: { status: 'processing' }
-    #     expect(JSON.parse(response.body).empty?).to be_truthy
-    #   end
-    # end
   end
 
 end
