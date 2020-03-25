@@ -8,8 +8,8 @@
     <button id="blue-channel" class="btn btn-primary with-blue">Azul</button>
     <button id="green-channel" class="btn btn-success with-green">Verde</button>
     <button id="red-channel" class="btn btn-danger with-red">Vermelho</button>
-    <button id="mark-as-positive" class="btn btn-outline-success ml-5">Marcar como positivo</button>
-    <button id="mark-as-negative" class="btn btn-outline-danger ml-5">Marcar como negativo</button>
+    <button id="mark-as-appropriate" class="btn btn-outline-success ml-5">Marcar como adequada</button>
+    <button id="mark-as-inappropriate" class="btn btn-outline-danger ml-5">Marcar como inadequada</button>
     <button id="treated" class="btn btn-outline-dark float-right">Tratar</button>
     <button id="original" class="btn btn-outline-info float-right" hidden>Original</button>
   </div>
@@ -35,7 +35,7 @@
     <hr>
   <% end %>
   <% @scanned_cells.each do |cell| %>
-    <div id="cell-<%= cell.id %>" class="card d-inline-block  border <%= cell.positive? ? "border-success" : "border-danger"%>" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px;">
+    <div id="cell-<%= cell.id %>" class="card d-inline-block <%= cell.appropriate? ? "appropriate" : "inappropriate" %>" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px; border: 3px solid <%= cell.appropriate? ? "rgb(40, 167, 69);" : "rgb(202, 37, 53);" %>">
       <%= image_tag cell.rgb, class: "cell", style: {width: 125, height: 125}, data_value: cell.id, data_label: cell.label %>
     </div>
   <% end %>

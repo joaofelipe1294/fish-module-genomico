@@ -9,12 +9,12 @@ $(document).on('turbolinks:load', () => {
   $('.cell').on('click', (event) => {
     let label = $(event.target).attr('data_label');
     $('#nucleus-label').text(label)
-    $('#mark-as-positive').hide()
-    $('#mark-as-negative').hide()
-    if (label === 'positive')
-      $('#mark-as-negative').show()
+    $('#mark-as-appropriate').hide()
+    $('#mark-as-inappropriate').hide()
+    if (label === 'appropriate')
+      $('#mark-as-inappropriate').show()
     else
-      $('#mark-as-positive').show()
+      $('#mark-as-appropriate').show()
     let cell_id = $(event.target).attr('data_value');
     $('#nucleus-id').text(cell_id)
     render_rgb_nucleus(cell_id);
