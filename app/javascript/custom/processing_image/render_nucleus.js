@@ -23,7 +23,7 @@ $(document).on('turbolinks:load', () => {
   $('#treated').on('click', (event) => {
     let cell_id = $(event.target).attr('data-value');
     $.ajax({
-      url: `/scanned_cells/treat/${cell_id}`,
+      url: `/scanned_cells/${cell_id}?treat=true`,
       success: (response) => {
         $("#channel-paths").text('')
         $("#channel-paths").text((JSON.stringify(response)));

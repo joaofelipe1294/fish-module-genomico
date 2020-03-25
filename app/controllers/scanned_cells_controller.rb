@@ -47,7 +47,7 @@ class ScannedCellsController < ApplicationController
     end
 
     def rgb
-      if @scanned_cell.blue.attached? and @scanned_cell.green.attached? and @scanned_cell.red.attached?
+      if @scanned_cell.blue.attached? and @scanned_cell.green.attached? and @scanned_cell.red.attached? and (@scanned_cell.treated.attached? == false)
         processed_cell = @scanned_cell
       else
         processed_cell = ColorChannelExtractorService.new(@scanned_cell).call
