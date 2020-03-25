@@ -8,8 +8,8 @@ $(document).on('turbolinks:load', () => {
       success: (response) => {
         $('#mark-as-inappropriate').fadeToggle();
         $('#mark-as-appropriate').fadeToggle();
-        $(`#cell-${cell_id}`).removeClass('border-success');
-        $(`#cell-${cell_id}`).addClass('border-danger');
+        $(`#cell-${cell_id}`).removeClass('appropriate');
+        $(`#cell-${cell_id}`).addClass('inappropriate');
         $(`#cell-${cell_id}`).children().first().attr('data_label', 'inappropriate')
       },
       error: (error) => {
@@ -26,8 +26,8 @@ $(document).on('turbolinks:load', () => {
       success: (response) => {
         $('#mark-as-inappropriate').fadeToggle();
         $('#mark-as-appropriate').fadeToggle();
-        $(`#cell-${cell_id}`).removeClass('border-danger');
-        $(`#cell-${cell_id}`).addClass('border-success');
+        $(`#cell-${cell_id}`).removeClass('inappropriate');
+        $(`#cell-${cell_id}`).addClass('appropriate');
         $(`#cell-${cell_id}`).children().first().attr('data_label', 'appropriate')
       },
       error: (error) => {
