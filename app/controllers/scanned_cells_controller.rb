@@ -20,7 +20,7 @@ class ScannedCellsController < ApplicationController
   end
 
   def update
-    if @scanned_cell.update label: params[:label]
+    if @scanned_cell.update analysis_label: params[:label]
       render json: {}, status: :ok
     else
       render json: @scanned_cell.errors.full_messages.first

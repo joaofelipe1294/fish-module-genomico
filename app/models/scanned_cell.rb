@@ -12,7 +12,7 @@ class ScannedCell < ApplicationRecord
   has_one_attached :treated
   validates_with CheckRgbValidator
   paginates_per 45
-  enum label: {
+  enum analysis_label: {
     appropriate: 1,
     inappropriate: 0
   }
@@ -52,7 +52,7 @@ class ScannedCell < ApplicationRecord
   private
 
     def set_label
-      self.label = :appropriate unless self.label
+      self.analysis_label = :appropriate unless self.analysis_label
     end
 
     def get_attached_path attachment

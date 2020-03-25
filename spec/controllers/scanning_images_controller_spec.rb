@@ -31,5 +31,4 @@ RSpec.describe ScanningImagesController, type: :controller do
     end
   end
 
-
 end

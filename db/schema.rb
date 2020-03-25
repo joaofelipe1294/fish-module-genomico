@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_03_22_133211) do
 
   create_table "scanned_cells", force: :cascade do |t|
     t.bigint "scanning_image_id", null: false
-    t.integer "label"
+    t.integer "analysis_label"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["scanning_image_id"], name: "index_scanned_cells_on_scanning_image_id"

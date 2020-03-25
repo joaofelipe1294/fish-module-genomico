@@ -37,7 +37,7 @@ RSpec.feature "ScanningImages::ChangeLabels", type: :feature do
   end
   describe "when scanned cell label is inappropriate", js: true do
     before :each do
-      ScannedCell.all.each { |cell| cell.update label: :inappropriate }
+      ScannedCell.all.each { |cell| cell.update analysis_label: :inappropriate }
       visit scanning_image_path(@scanning_image)
       find(class: 'cell', match: :first).click
     end
