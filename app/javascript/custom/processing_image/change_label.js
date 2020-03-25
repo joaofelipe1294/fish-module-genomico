@@ -1,16 +1,16 @@
 $(document).on('turbolinks:load', () => {
 
-  $('#mark-as-negative').on('click', (event) => {
+  $('#mark-as-inappropriate').on('click', (event) => {
     let cell_id = $('#nucleus-id').text();
     $.ajax({
-      url: `/scanned_cells/${cell_id}/change_label?label=negative`,
+      url: `/scanned_cells/${cell_id}/change_label?label=inappropriate`,
       method: 'patch',
       success: (response) => {
-        $('#mark-as-negative').fadeToggle();
-        $('#mark-as-positive').fadeToggle();
+        $('#mark-as-inappropriate').fadeToggle();
+        $('#mark-as-appropriate').fadeToggle();
         $(`#cell-${cell_id}`).removeClass('border-success');
         $(`#cell-${cell_id}`).addClass('border-danger');
-        $(`#cell-${cell_id}`).children().first().attr('data_label', 'negative')
+        $(`#cell-${cell_id}`).children().first().attr('data_label', 'inappropriate')
       },
       error: (error) => {
         console.log(error);
@@ -18,17 +18,17 @@ $(document).on('turbolinks:load', () => {
     })
   })
 
-  $('#mark-as-positive').on('click', (event) => {
+  $('#mark-as-appropriate').on('click', (event) => {
     let cell_id = $('#nucleus-id').text();
     $.ajax({
-      url: `/scanned_cells/${cell_id}/change_label?label=positive`,
+      url: `/scanned_cells/${cell_id}/change_label?label=appropriate`,
       method: 'patch',
       success: (response) => {
-        $('#mark-as-negative').fadeToggle();
-        $('#mark-as-positive').fadeToggle();
+        $('#mark-as-inappropriate').fadeToggle();
+        $('#mark-as-appropriate').fadeToggle();
         $(`#cell-${cell_id}`).removeClass('border-danger');
         $(`#cell-${cell_id}`).addClass('border-success');
-        $(`#cell-${cell_id}`).children().first().attr('data_label', 'positive')
+        $(`#cell-${cell_id}`).children().first().attr('data_label', 'appropriate')
       },
       error: (error) => {
         console.log(error);
