@@ -2,20 +2,11 @@ class ScannedCellsController < ApplicationController
   before_action :set_scanned_cell
 
   def show
-    if  @scanned_cell.blue.attached? and @scanned_cell.green.attached? and @scanned_cell.red.attached?
-      processed_cell = @scanned_cell
+    if params[:treat].present?
+      data = treat
     else
-      processed_cell = ColorChannelExtractorService.new(@scanned_cell).call
+      data = rgb
     end
-    data = response_formatter(processed_cell)
-    data[:rgb] = processed_cell.rgb_path
-    render json: data, status: :ok
-  end
-
-  def treat
-    processed_cell = RemoveNoiseService.new(@scanned_cell).call
-    data = response_formatter(processed_cell)
-    data[:treated] = processed_cell.treated_path
     render json: data, status: :ok
   end
 
@@ -42,6 +33,28 @@ class ScannedCellsController < ApplicationController
         blue_red: processed_cell.blue_red_path,
         green_red: processed_cell.green_red_path,
       }
+    end
+
+    def treat
+      if @scanned_cell.blue.attached? and @scanned_cell.green.attached? and @scanned_cell.red.attached? and @scanned_cell.treated.attached?
+        processed_cell = @scanned_cell
+      else
+        processed_cell = RemoveNoiseService.new(@scanned_cell).call
+      end
+      data = response_formatter(processed_cell)
+      data[:treated] = processed_cell.treated_path
+      data
+    end
+
+    def rgb
+      if @scanned_cell.blue.attached? and @scanned_cell.green.attached? and @scanned_cell.red.attached?
+        processed_cell = @scanned_cell
+      else
+        processed_cell = ColorChannelExtractorService.new(@scanned_cell).call
+      end
+      data = response_formatter(processed_cell)
+      data[:rgb] = processed_cell.rgb_path
+      data
     end
 
 end
