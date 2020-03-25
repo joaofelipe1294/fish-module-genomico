@@ -3,7 +3,7 @@ $(document).on('turbolinks:load', () => {
   $('#mark-as-inappropriate').on('click', (event) => {
     let cell_id = $('#nucleus-id').text();
     $.ajax({
-      url: `/scanned_cells/${cell_id}/change_label?label=inappropriate`,
+      url: `/scanned_cells/${cell_id}?label=inappropriate`,
       method: 'patch',
       success: (response) => {
         $('#mark-as-inappropriate').fadeToggle();
@@ -21,7 +21,7 @@ $(document).on('turbolinks:load', () => {
   $('#mark-as-appropriate').on('click', (event) => {
     let cell_id = $('#nucleus-id').text();
     $.ajax({
-      url: `/scanned_cells/${cell_id}/change_label?label=appropriate`,
+      url: `/scanned_cells/${cell_id}?label=appropriate`,
       method: 'patch',
       success: (response) => {
         $('#mark-as-inappropriate').fadeToggle();
