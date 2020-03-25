@@ -19,9 +19,12 @@ class ScannedCellsController < ApplicationController
     render json: data, status: :ok
   end
 
-  def change_label
-    @scanned_cell.update label: params[:label]
-    render json: {}, status: :ok
+  def update
+    if @scanned_cell.update analysis_label: params[:label]
+      render json: {}, status: :ok
+    else
+      render json: @scanned_cell.errors.full_messages.first, status: :bad_request
+    end
   end
 
   private

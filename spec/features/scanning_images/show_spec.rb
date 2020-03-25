@@ -32,9 +32,9 @@ RSpec.feature "ScanningImages::Shows", type: :feature do
       it 'is expected to render btn treat image' do
         expect(page).to have_selector '#treated'
       end
-      it 'is expected to render btn to change nucleus to negative' do
-        expect(page).to have_selector '#mark-as-negative'
-        expect(page).not_to have_selector '#mark-as-positive'
+      it 'is expected to render btn to change nucleus to inappropriate' do
+        expect(page).to have_selector '#mark-as-inappropriate'
+        expect(page).not_to have_selector '#mark-as-appropriate'
       end
       context "when click in shade" do
         before(:each) { find(id: 'shade').trigger("click") }

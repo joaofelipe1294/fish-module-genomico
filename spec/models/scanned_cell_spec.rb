@@ -18,7 +18,7 @@ RSpec.describe ScannedCell, type: :model do
       expect(@scanned_cell).to be_invalid
     end
     it 'is expected to be valid' do
-      expect(@scanned_cell.label).to eq :appropriate.to_s
+      expect(@scanned_cell.analysis_label).to eq :appropriate.to_s
       expect(@scanned_cell).to be_valid
     end
     it 'is expected to be_invalid when without rgb attachment' do
