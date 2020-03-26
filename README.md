@@ -6,11 +6,11 @@ The Neural Network step is going to be implemented during image acquisition and 
 
 At this moment the application is serving only to help analyst in nucleus analysis by providing image processing features.
 
-![Screenshot from 2020-03-26 11-38-08](https://user-images.githubusercontent.com/9594670/77659299-a7b8d400-6f56-11ea-98dc-89bd28efba42.png)
+![Screenshot from 2020-03-26 11-38-08](https://user-images.githubusercontent.com/9594670/77659299-a7b8d400-6f56-11ea-98dc-89bd28efba42.png )
 
-![marked](https://user-images.githubusercontent.com/9594670/77659555-f6ff0480-6f56-11ea-99be-f070d765fee6.PNG)
+![marked](https://user-images.githubusercontent.com/9594670/77659555-f6ff0480-6f56-11ea-99be-f070d765fee6.PNG )
 
-![normal](https://user-images.githubusercontent.com/9594670/77659558-f8c8c800-6f56-11ea-8611-654f45478a1d.PNG)
+![normal](https://user-images.githubusercontent.com/9594670/77659558-f8c8c800-6f56-11ea-8611-654f45478a1d.PNG )
 
 # Development
 
