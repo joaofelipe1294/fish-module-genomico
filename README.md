@@ -23,3 +23,12 @@ To set up development machine run the sequence
 To deploy application you must run the scripts in deploy dir on file name sequence
 
 After install all apps and setup redis and sidekiq application can be started running script start.sh
+
+# Stack
+
+- Rails 6.0.2
+- Ruby 2.6.3
+- Postgres
+- Redis 5.0.5
+- Sidekiq 6
+- The core image processing module uses python3 with OpenCV4
