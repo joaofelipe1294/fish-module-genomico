@@ -8,27 +8,8 @@ To set up development machine run the sequence
  - run ruby_install
  - run rails_install
  - run chrome_install
+ - ren redis_install
 
+To deploy application you must run the scripts in deploy dir on file name sequence
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+After install all apps and setup redis and sidekiq application can be started running script start.sh
